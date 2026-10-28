@@ -114,11 +114,11 @@ ArchDesign/
 
 ## 5. 当前进度
 
-**总进度：2 / 60（核心 2/56，工作坊 0/4）**
+**总进度：3 / 60（核心 3/56，工作坊 0/4）**
 
 - [x] **Day 01 · 线程池：把并发关进笼子** — [文章](days/day-001-thread-pool/README.md) · [代码](days/day-001-thread-pool/code/)
 - [x] **Day 02 · Redis 事件循环** — [文章](days/day-002-redis-event-loop/README.md) · [代码](days/day-002-redis-event-loop/code/)
-- [ ] Day 03 · 时间轮
+- [x] **Day 03 · 时间轮** — [文章](days/day-003-timing-wheel/README.md) · [代码](days/day-003-timing-wheel/code/)
 - [ ] Day 04 · 异步日志
 - [ ] Day 05 · 内存分配器
 - [ ] Day 06 · 无锁环形队列 / Disruptor
