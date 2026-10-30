@@ -163,7 +163,7 @@ bucket = target_tick & mask
 remainingRounds = (target_tick - current_tick) / wheelSize
 ```
 
-但边界处容易多等/少等一圈。本课实现用“下一次访问该 bucket 的 tick”来推导：
+这个公式的边界取决于 `target_tick` 和“当前 bucket 是否已经处理”的定义。用“下一次访问该 bucket 的 tick”来推导更直观：
 
 ```text
 start = current_tick + 1
@@ -175,6 +175,15 @@ rounds = (target_tick - first_visit) / wheelSize
 
 - `first_visit`：从下一个 tick 开始，第一次走到这个 bucket 的 tick；
 - `rounds`：第一次访问之后，还要跳过多少个完整轮才到期。
+
+因为 `target_tick - first_visit` 一定是 `wheelSize` 的整数倍，这个式子可以化简为：
+
+```text
+ticks = target_tick - current_tick
+rounds = (ticks - 1) / wheelSize
+```
+
+本课实现用这个更简单的等价式；`first_visit` 保留在这里作为理解工具。
 
 例子：`tick=10 ms`，`wheelSize=8`，当前 tick=0：
 
@@ -463,19 +472,18 @@ const std::uint64_t target = current_tick_ + ticks;
 const std::uint64_t wheel_size = wheel_.size();
 const std::uint64_t bucket =
     static_cast<std::uint64_t>(target & mask_);
-const std::uint64_t start = current_tick_ + 1;
 
-const std::uint64_t first =
-    start + (bucket + wheel_size - (start & mask_)) % wheel_size;
-
-const std::uint64_t rounds = (target - first) / wheel_size;
+// 目标 bucket 每隔 wheelSize 个 tick 被访问一次；在到达 target 之前，
+// 一共有 floor((ticks-1)/wheelSize) 次“提前访问”。
+const std::uint64_t rounds = (ticks - 1) / wheel_size;
 ```
 
 关键点：
 
 - `delay=0` 也至少等一个 tick，避免“刚插入就在当前桶里被处理”的竞态；
-- `first` 是“下一次访问目标 bucket 的 tick”，不是当前 tick；
-- `rounds` 表示第一次访问之后还要跳过几轮；
+- 目标 bucket 每隔 `wheelSize` 个 tick 被访问一次；
+- `rounds` 表示在真正到期前还要跳过几轮；
+- 这个式子和前面用 `first_visit` 推导的公式等价，但少一次取模/分支；
 - 位运算 `& mask` 要求 wheelSize 是 2 的幂。
 
 ### 6.3 推进：先收集，后执行

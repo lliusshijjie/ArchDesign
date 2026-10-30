@@ -117,16 +117,8 @@ public:
 
         const std::uint64_t target = current_tick_ + ticks;
         const std::uint64_t wheel_size = wheel_.size();
-        const std::uint64_t bucket =
-            static_cast<std::uint64_t>(target & mask_);
-        const std::uint64_t start = current_tick_ + 1;
-
-        // 从 start 开始，下一次访问 bucket 的 tick。
-        const std::uint64_t first =
-            start + (bucket + wheel_size - (start & mask_)) % wheel_size;
-
-        // 第一次访问之后还要跳过多少个完整轮。
-        const std::uint64_t rounds = (target - first) / wheel_size;
+        const std::uint64_t bucket = static_cast<std::uint64_t>(target & mask_);
+        const std::uint64_t rounds = (ticks - 1) / wheel_size;
 
         auto timeout = std::make_shared<Timeout>();
         timeout->id = next_id_++;
