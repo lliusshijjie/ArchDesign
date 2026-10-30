@@ -25,7 +25,7 @@
 | 01 | [线程池：把并发关进笼子](days/day-001-thread-pool/README.md) | OpenJDK `ThreadPoolExecutor`：`ctl`、`execute`、`runWorker`、`getTask`、`tryTerminate` | 状态与计数打包、准入控制、拒绝策略、两阶段关闭；延伸：单队列 vs 工作窃取 | ✅ |
 | 02 | [Redis 事件循环：单线程为什么能快](days/day-002-redis-event-loop/README.md) | `ae.c` / `ae_epoll.c` / `networking.c`：`aeProcessEvents`、`beforeSleep`、文件事件与时间事件 | Reactor、水平触发、beforeSleep 延迟写、时间事件 | ✅ |
 | 03 | [时间轮：海量定时器为什么能做到 O(1)](days/day-003-timing-wheel/README.md) | Netty `HashedWheelTimer`；Kafka `SystemTimer` / `TimingWheel` | 分桶、rounds、层级时间轮、原子取消 | ✅ |
-| 04 | 异步日志：不能让磁盘拖慢业务线程 | Log4j2 `AsyncLogger` + LMAX Disruptor；spdlog `async_logger` | 生产者-消费者、批处理、队列满策略、优雅停机 | — |
+| 04 | [异步日志：别让磁盘拖慢业务线程](days/day-004-async-logging/README.md) | Log4j2 `AsyncLogger` + LMAX Disruptor；spdlog `async_logger` | 有界队列、溢出策略、批量消费、flush/shutdown | ✅ |
 | 05 | 内存分配器：malloc 为什么会成为瓶颈 | jemalloc：size class、arena、thread cache；tcmalloc 对照 | 尺寸分级、线程缓存、slab、减少锁竞争 | — |
 | 06 | 无锁环形队列：Disruptor 的机械同情 | LMAX Disruptor：`RingBuffer`、sequence、gating、cache line padding | 单写者、序列栅栏、内存序、批处理、背压 | — |
 | 07 | **周复盘**：有界、可观测的执行器 | 组合 Day 01/03/04/06；压测 + 故障注入 | 把“池”抽象成资源边界；指标与关闭语义 | — |
@@ -169,11 +169,11 @@
 
 ## 进度记录
 
-**总进度：3 / 60（核心 3/56，工作坊 0/4）**
+**总进度：4 / 60（核心 4/56，工作坊 0/4）**
 
 | 阶段 | 核心单元 | 核心完成 | 工作坊 | 工作坊完成 | 最大收获（一句话） |
 |---|---|---|---|---|---|
-| 1 | Day 01–14 | 3 / 14 | A | 0 / 1 | 线程池管边界，事件循环管等待，时间轮用分桶换精度 |
+| 1 | Day 01–14 | 4 / 14 | A | 0 / 1 | 有界队列换业务延迟；flush 是屏障，不是“不会丢” |
 | 2 | Day 15–28 | 0 / 14 | B | 0 / 1 | |
 | 3 | Day 29–42 | 0 / 14 | C | 0 / 1 | |
 | 4 | Day 43–56 | 0 / 14 | D | 0 / 1 | |
