@@ -9,6 +9,8 @@ patterns:
 prerequisites:
   - ""
 estimated_minutes: 90
+primary_language: "C++20"
+secondary_language: "Rust"
 ---
 
 # Day {N} · {标题}
@@ -73,6 +75,12 @@ sequenceDiagram
     S-->>C: response
 ```
 
+### 3.1 语言对照
+
+- **C++/Rust 对应实现**：{优先列出 C++/Rust 生态里更贴近生产的实现}
+- **仍引用 Java 的原因**：{它是官方实现/最佳样本/协议定义，还是仅仅因为资料多}
+- **本课代码**：默认 C++20；如果主题更适合 Rust，明确说明原因
+
 ## 4. 关键设计技巧
 
 ### 技巧 1：{名称}
@@ -105,9 +113,9 @@ sequenceDiagram
 - 时钟跳跃/重启：
 - 扩缩容：
 
-## 6. 最小实现（C++20 / Rust）
+## 6. 最小实现（默认 C++20；Rust 对照）
 
-{说明为什么这样拆接口，以及示例省略了哪些生产特性。}
+> 代码默认 C++20。Java 只用于源码/机制对照；如果本课用 Rust，说明为什么 Rust 更合适。示例省略的生产特性列在末尾。
 
 ```cpp
 // 关键代码 1：接口/状态机

@@ -28,6 +28,29 @@
 - **最低完成线**（只有 45 分钟时）：读“背景 + 架构 + 技巧”，运行示例，回答自测题；代码练习留到下一个单元前。
 - **不绑定日历日期**：按“单元”推进，断档后从下一个未完成单元继续，不需要补日期。
 
+### 1.1 技术栈与取材偏好
+
+根据你的背景（**C++ > Rust > Java**），后续课程按下面的原则取材：
+
+- **代码默认 C++20**；Rust 作为第二实现/特定主题对照；不强制每课双语言。
+- **Java 只在它是事实标准或最佳教学样本时出现**：`ThreadPoolExecutor`、Netty、Kafka、Log4j2 等；重点追机制，不要求通读整个仓库。
+- **每个主题尽量给 C++/Rust 生态的对应物**；如果 C++/Rust 有更贴近生产、更适合你复用的实现，优先用它作为主线。
+- **不以语言偏好牺牲案例质量**：Java 官方实现仍然是重要参考，但会明确标注“这是 Java 参考实现，练习用 C++/Rust 重写”。
+- 代码示例默认跨平台；涉及 `epoll`、`io_uring`、`fork` 等 Linux 特性时会明确标注。
+
+| 主题 | 主案例（可能是 Java/C/Go） | C++/Rust 对照 |
+|---|---|---|
+| 线程池/执行器 | OpenJDK `ThreadPoolExecutor` | Folly Executor、Boost.Asio、Taskflow、Rust Rayon |
+| 事件循环 | Redis `ae`、Netty | Seastar、Boost.Asio、libuv（C）、Rust mio/Tokio |
+| 定时器 | Netty `HashedWheelTimer`、Kafka `TimingWheel` | C++ 时间轮实现、Rust `tokio::time` |
+| 异步日志 | Log4j2 `AsyncLogger` | spdlog、quill、Rust `tracing` |
+| 存储引擎 | InnoDB（C/C++）、PostgreSQL（C）、LevelDB/RocksDB（C++） | RocksDB、Redb、Rust `sled` 等 |
+| 消息队列 | Kafka、RocketMQ、Pulsar | Redpanda（C++）、Aeron（C++/Java）、librdkafka、NATS（Go） |
+| 共识/协调 | etcd（Go）、ZooKeeper（Java） | braft、NuRaft、raft-rs、etcd |
+| 运行时调度 | Go GMP、Tokio | Tokio、Seastar、Folly、Rust async runtime |
+
+> 结论：**主线用 C++/Rust 的机制和代码，Java 作为“官方实现/最佳样本”对照**。这样既贴近你的技术栈，也不丢掉 Java 生态里最值得学的设计。
+
 ## 2. 核心内容地图（8 个模块）
 
 | 周 | 主题 | 核心问题 | 核心单元 |
@@ -165,7 +188,7 @@ ArchDesign/
 
 ## 8. 代码环境
 
-- 主要语言：**C++20**；部分主题用 **Rust** 对照。
+- 主要语言：**C++20**；第二语言：**Rust**；**Java 仅用于官方源码/概念参考**，不作为练习实现语言。
 - 构建：CMake ≥ 3.20 + 任意 C++20 编译器（GCC 11+/Clang 14+/MSVC 19.30+）。
 - 平台：示例优先跨平台；涉及 `epoll`、`io_uring`、`fork` 等 Linux 特性时会明确标注“仅 Linux”。
 - 并发示例默认链接线程库；Windows 下使用 MinGW/GCC 或 MSVC 均可。
