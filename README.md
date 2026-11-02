@@ -19,7 +19,7 @@
 - **结构**：4 个阶段 ×（14 个核心单元 + 1 个阶段工作坊）= 60 次。
 - **核心**：48 个主题深挖 + 8 次周复盘；另加 4 个阶段工作坊。
 - **节奏**：每两天 **19:00（Asia/Shanghai）** 推进下一次；留出一天消化、补代码和读源码。
-- **当前节奏**：Day 01–05 已完成；下一次 **2026-11-03 19:00** 从 Day 06 开始，之后每 48 小时一次（以会话里的定时任务为准）。
+- **当前节奏**：Day 01–06 已完成；下一次 **2026-11-04 19:00** 从 Day 07 开始，之后每 48 小时一次（以会话里的定时任务为准）。
 - **每次投入**：建议 90–120 分钟。
   - 45 分钟：读文章、画数据流；
   - 30 分钟：读指定源码/文档并做笔记；
@@ -137,14 +137,14 @@ ArchDesign/
 
 ## 5. 当前进度
 
-**总进度：5 / 60（核心 5/56，工作坊 0/4）**
+**总进度：6 / 60（核心 6/56，工作坊 0/4）**
 
 - [x] **Day 01 · 线程池：把并发关进笼子** — [文章](days/day-001-thread-pool/README.md) · [代码](days/day-001-thread-pool/code/)
 - [x] **Day 02 · Redis 事件循环** — [文章](days/day-002-redis-event-loop/README.md) · [代码](days/day-002-redis-event-loop/code/)
 - [x] **Day 03 · 时间轮** — [文章](days/day-003-timing-wheel/README.md) · [代码](days/day-003-timing-wheel/code/)
 - [x] **Day 04 · 异步日志** — [文章](days/day-004-async-logging/README.md) · [代码](days/day-004-async-logging/code/)
 - [x] **Day 05 · 内存分配器** — [文章](days/day-005-memory-allocator/README.md) · [代码](days/day-005-memory-allocator/code/)
-- [ ] Day 06 · 无锁环形队列 / Disruptor
+- [x] **Day 06 · 无锁环形队列 / Disruptor** — [文章](days/day-006-lock-free-ring/README.md) · [代码](days/day-006-lock-free-ring/code/)
 - [ ] Day 07 · 周复盘：有界可观测执行器
 - [ ] 工作坊 A–D · [工作坊说明](workshops/README.md)
 
