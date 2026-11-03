@@ -37,7 +37,7 @@
 
 | Day | 主题 | 案例 / 源码坐标 | 可复用模式 | 状态 |
 |---|---|---|---|---|
-| 08 | LSM-tree：用顺序写换随机写 | LevelDB / RocksDB：WAL → MemTable → Immutable → SSTable；compaction | 追加写、不可变结构、后台合并、读写放大权衡 | — |
+| 08 | [LSM-tree：用顺序写换随机写](days/day-008-lsm-tree/README.md) | LevelDB / RocksDB：WAL → MemTable → Immutable → SSTable；compaction | 追加写、不可变 SST、tombstone、全量/分层合并、读写放大 | ✅ |
 | 09 | WAL 与 group commit：fsync 的批量艺术 | PostgreSQL WAL（LSN、segment、checkpoint）；etcd WAL | 预写日志、批量 fsync、校验和、幂等恢复 | — |
 | 10 | Buffer Pool：数据库的页缓存 | InnoDB buffer pool：LRU young/old、midpoint insertion、flush list、doublewrite | 页缓存、写回、淘汰策略、二次写 | — |
 | 11 | B+ 树页面：索引的物理结构 | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | 槽页（slotted page）、有序数组 + 目录、锁耦合 | — |
@@ -170,11 +170,11 @@
 
 ## 进度记录
 
-**总进度：7 / 60（核心 7/56，工作坊 0/4）**
+**总进度：8 / 60（核心 8/56，工作坊 0/4）**
 
 | 阶段 | 核心单元 | 核心完成 | 工作坊 | 工作坊完成 | 最大收获（一句话） |
 |---|---|---|---|---|---|
-| 1 | Day 01–14 | 7 / 14 | A | 0 / 1 | 超时响应与物理回收分开；准入配额必须覆盖尚未结束的工作 |
+| 1 | Day 01–14 | 8 / 14 | A | 0 / 1 | LSM 把随机写换成顺序写，但把成本转移到 compaction 和三种放大 |
 | 2 | Day 15–28 | 0 / 14 | B | 0 / 1 | |
 | 3 | Day 29–42 | 0 / 14 | C | 0 / 1 | |
 | 4 | Day 43–56 | 0 / 14 | D | 0 / 1 | |
