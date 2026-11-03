@@ -1,0 +1,135 @@
+Day 07 final verification snapshot, 2026-11-03 (Asia/Shanghai)
+Source base: 7baa48c plus current working tree; original Day 06 local edits retained.
+Compiler: C:/msys64/mingw64/bin/g++.exe
+Version: GCC 15.1.0 (Rev5, Built by MSYS2 project)
+Target: x86_64-w64-mingw32
+CMake: 4.1.0-rc3
+Ninja: 1.13.0.git.kitware.jobserver-pipe-1
+Configuration: Debug; -g -std=c++20 -Wall -Wextra -Wpedantic -Werror
+
+Commands (repository root, prepend C:/msys64/mingw64/bin to PATH):
+cmake -S days/day-007-observable-executor/code -B days/day-007-observable-executor/code/build -G Ninja -DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/g++.exe -DCMAKE_BUILD_TYPE=Debug
+cmake --build days/day-007-observable-executor/code/build -j 2 --verbose
+ctest --test-dir days/day-007-observable-executor/code/build --output-on-failure --output-log days/day-007-observable-executor/code/build/ctest.log
+
+Initial full build and 7/7 CTest passed. Then explicit assertions for no early
+deadline response and no unexpected admission errors were added.
+Final incremental rebuild and the same 7/7 CTest passed; this snapshot captures
+the final run, not an additional stress or performance test.
+Configure exit code: 0
+Build exit code: 0
+Final CTest exit code: 0
+
+Final CTest summary:
+Test project D:/my_project/ArchDesign/days/day-007-observable-executor/code/build
+    Start 1: lab_normal
+1/7 Test #1: lab_normal .......................   Passed    1.77 sec
+    Start 2: lab_ingress
+2/7 Test #2: lab_ingress ......................   Passed    0.04 sec
+    Start 3: lab_overload
+3/7 Test #3: lab_overload .....................   Passed    0.06 sec
+    Start 4: lab_deadline
+4/7 Test #4: lab_deadline .....................   Passed    0.22 sec
+    Start 5: lab_slow-log
+5/7 Test #5: lab_slow-log .....................   Passed    0.04 sec
+    Start 6: lab_failure-shutdown
+6/7 Test #6: lab_failure-shutdown .............   Passed    0.05 sec
+    Start 7: lab_sample_input
+7/7 Test #7: lab_sample_input .................   Passed    0.14 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Total Test time (real) =   2.34 sec
+
+Captured final scenario stdout:
+[normal]
+  id=1 status=succeeded elapsed_us=19040 checksum=64
+  id=2 status=succeeded elapsed_us=19046 checksum=128
+  id=3 status=succeeded elapsed_us=34624 checksum=192
+  id=4 status=succeeded elapsed_us=34650 checksum=256
+  id=5 status=succeeded elapsed_us=50130 checksum=320
+  id=6 status=succeeded elapsed_us=50167 checksum=49152
+  offered=6 admitted=6 succeeded=6 failed=0 timed_out=0 retired=6 late_completed=0
+  rejected: ingress=0 admission=0 pool=0 admission_error=0 stopped=0
+  max_ingress=6 max_in_flight=6 max_worker_queued=5 pump_rounds=4 sample_p99_us=50167
+  logs: accepted=12 dropped=0 processed=12
+  allocator: allocations=12 deallocations=12 active_delta=0 large=1
+[PASS] normal
+
+[ingress]
+  id=3 status=ingress_rejected elapsed_us=0 checksum=0
+  id=4 status=ingress_rejected elapsed_us=0 checksum=0
+  id=5 status=ingress_rejected elapsed_us=0 checksum=0
+  id=1 status=succeeded elapsed_us=12733 checksum=64
+  id=2 status=succeeded elapsed_us=12731 checksum=128
+  offered=5 admitted=2 succeeded=2 failed=0 timed_out=0 retired=2 late_completed=0
+  rejected: ingress=3 admission=0 pool=0 admission_error=0 stopped=0
+  max_ingress=2 max_in_flight=2 max_worker_queued=1 pump_rounds=2 sample_p99_us=12733
+  logs: accepted=4 dropped=0 processed=4
+  allocator: allocations=4 deallocations=4 active_delta=0 large=0
+[PASS] ingress
+
+[overload]
+  id=3 status=pool_rejected elapsed_us=0 checksum=0
+  id=4 status=pool_rejected elapsed_us=0 checksum=0
+  id=5 status=pool_rejected elapsed_us=0 checksum=0
+  id=1 status=succeeded elapsed_us=25913 checksum=64
+  id=2 status=succeeded elapsed_us=15252 checksum=128
+  offered=5 admitted=2 succeeded=2 failed=0 timed_out=0 retired=2 late_completed=0
+  rejected: ingress=0 admission=0 pool=3 admission_error=0 stopped=0
+  max_ingress=4 max_in_flight=2 max_worker_queued=1 pump_rounds=4 sample_p99_us=25913
+  logs: accepted=4 dropped=0 processed=4
+  allocator: allocations=10 deallocations=10 active_delta=0 large=0
+[PASS] overload
+
+[deadline]
+  id=1 status=timed_out elapsed_us=152528 checksum=0
+  id=2 status=admission_rejected elapsed_us=0 checksum=0
+  offered=2 admitted=1 succeeded=0 failed=0 timed_out=1 retired=1 late_completed=1
+  rejected: ingress=0 admission=1 pool=0 admission_error=0 stopped=0
+  max_ingress=1 max_in_flight=1 max_worker_queued=1 pump_rounds=14 sample_p99_us=152528
+  logs: accepted=2 dropped=0 processed=2
+  allocator: allocations=2 deallocations=2 active_delta=0 large=0
+[PASS] deadline
+
+[slow-log]
+  id=1 status=succeeded elapsed_us=12431 checksum=64
+  id=2 status=succeeded elapsed_us=14894 checksum=128
+  id=3 status=succeeded elapsed_us=14878 checksum=192
+  id=4 status=succeeded elapsed_us=14875 checksum=256
+  id=5 status=succeeded elapsed_us=14875 checksum=320
+  id=6 status=succeeded elapsed_us=14872 checksum=384
+  id=7 status=succeeded elapsed_us=14871 checksum=448
+  id=8 status=succeeded elapsed_us=14871 checksum=512
+  id=9 status=succeeded elapsed_us=14816 checksum=576
+  offered=9 admitted=9 succeeded=9 failed=0 timed_out=0 retired=9 late_completed=0
+  rejected: ingress=0 admission=0 pool=0 admission_error=0 stopped=0
+  max_ingress=8 max_in_flight=8 max_worker_queued=5 pump_rounds=3 sample_p99_us=14894
+  logs: accepted=3 dropped=15 processed=3
+  allocator: allocations=18 deallocations=18 active_delta=0 large=0
+[PASS] slow-log
+
+[failure-shutdown]
+  id=1 status=failed elapsed_us=12143 checksum=0
+  id=2 status=succeeded elapsed_us=12157 checksum=128
+  id=3 status=stopped elapsed_us=0 checksum=0
+  offered=3 admitted=2 succeeded=1 failed=1 timed_out=0 retired=2 late_completed=0
+  rejected: ingress=0 admission=0 pool=0 admission_error=0 stopped=1
+  max_ingress=2 max_in_flight=2 max_worker_queued=1 pump_rounds=2 sample_p99_us=12157
+  logs: accepted=4 dropped=0 processed=4
+  allocator: allocations=4 deallocations=4 active_delta=0 large=0
+[PASS] failure-shutdown
+
+[input-file]
+  id=1 status=succeeded elapsed_us=12660 checksum=64
+  id=2 status=succeeded elapsed_us=12646 checksum=192
+  id=3 status=failed elapsed_us=28528 checksum=0
+  id=4 status=succeeded elapsed_us=43541 checksum=32768
+  id=6 status=succeeded elapsed_us=43503 checksum=3072
+  id=5 status=timed_out elapsed_us=90602 checksum=0
+  offered=6 admitted=6 succeeded=4 failed=1 timed_out=1 retired=6 late_completed=1
+  rejected: ingress=0 admission=0 pool=0 admission_error=0 stopped=0
+  max_ingress=6 max_in_flight=6 max_worker_queued=4 pump_rounds=8 sample_p99_us=90602
+  logs: accepted=12 dropped=0 processed=12
+  allocator: allocations=12 deallocations=12 active_delta=0 large=1
+[PASS] input-file

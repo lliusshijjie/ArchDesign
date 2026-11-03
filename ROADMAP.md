@@ -29,7 +29,7 @@
 | 04 | [异步日志：别让磁盘拖慢业务线程](days/day-004-async-logging/README.md) | Log4j2 `AsyncLogger` + LMAX Disruptor；spdlog `async_logger` | 有界队列、溢出策略、批量消费、flush/shutdown | ✅ |
 | 05 | [内存分配器：malloc 为什么会成为瓶颈](days/day-005-memory-allocator/README.md) | jemalloc / tcmalloc / mimalloc；`size class`、slab、tcache、arena | 尺寸分级、线程缓存、批量 refill、large fallback | ✅ |
 | 06 | [无锁环形队列：Disruptor 的机械同情](days/day-006-lock-free-ring/README.md) | LMAX Disruptor；本课用 bounded MPMC ring 对照 | sequence、CAS、cache line padding、release/acquire、背压 | ✅ |
-| 07 | **周复盘**：有界、可观测的执行器 | 组合 Day 01/03/04/06；压测 + 故障注入 | 把“池”抽象成资源边界；指标与关闭语义 | — |
+| 07 | [**阶段实验**：有界、可观测的任务处理管线](days/day-007-observable-executor/README.md) | 组合 Day 01–06；准入、超时、慢日志、异常与关闭实验 | 资源边界、单次响应与物理回收、指标与关闭语义 | ✅ |
 
 ## W2 · 存储引擎与数据库内核
 
@@ -170,11 +170,11 @@
 
 ## 进度记录
 
-**总进度：6 / 60（核心 6/56，工作坊 0/4）**
+**总进度：7 / 60（核心 7/56，工作坊 0/4）**
 
 | 阶段 | 核心单元 | 核心完成 | 工作坊 | 工作坊完成 | 最大收获（一句话） |
 |---|---|---|---|---|---|
-| 1 | Day 01–14 | 6 / 14 | A | 0 / 1 | 无锁不等于无等待：sequence、gating 和内存序才是协议 |
+| 1 | Day 01–14 | 7 / 14 | A | 0 / 1 | 超时响应与物理回收分开；准入配额必须覆盖尚未结束的工作 |
 | 2 | Day 15–28 | 0 / 14 | B | 0 / 1 | |
 | 3 | Day 29–42 | 0 / 14 | C | 0 / 1 | |
 | 4 | Day 43–56 | 0 / 14 | D | 0 / 1 | |
