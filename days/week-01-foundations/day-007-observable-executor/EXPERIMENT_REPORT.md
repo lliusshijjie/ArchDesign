@@ -9,7 +9,7 @@
 - CMake / Ninja 版本：4.1.0-rc3 / 1.13.0.git.kitware.jobserver-pipe-1。
 - C++ 标准 / 构建类型 / 关键编译选项：C++20、Debug，`-g -std=c++20 -Wall -Wextra -Wpedantic -Werror`。
 - 配置与构建命令：见验证记录，均退出 0；构建包含 3 个源文件编译、静态库归档与可执行文件链接。
-- CTest：`ctest --test-dir days/day-007-observable-executor/code/build --output-on-failure`，最终 7/7 通过、0 失败、退出 0；报告总测试时间 2.34 秒。
+- CTest：`ctest --test-dir days/week-01-foundations/day-007-observable-executor/code/build --output-on-failure`，最终 7/7 通过、0 失败、退出 0；报告总测试时间 2.34 秒。
 - 当前验证直接使用 Day 06 的本地头文件，其会话前已有改动未被本实验覆盖。未验证干净远端检出、其他工具链或其他平台。
 
 ## 实验预测与结果

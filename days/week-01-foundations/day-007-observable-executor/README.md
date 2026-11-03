@@ -142,16 +142,16 @@ allocator.active 回到实验前基线
 ```powershell
 # 本机已验证的是这套 x64 工具链；按自己的安装位置调整。
 $env:PATH = 'C:\msys64\mingw64\bin;' + $env:PATH
-cmake -S days/day-007-observable-executor/code -B days/day-007-observable-executor/code/build -G Ninja -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Debug
-cmake --build days/day-007-observable-executor/code/build -j 2
-ctest --test-dir days/day-007-observable-executor/code/build --output-on-failure
+cmake -S days/week-01-foundations/day-007-observable-executor/code -B days/week-01-foundations/day-007-observable-executor/code/build -G Ninja -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Debug
+cmake --build days/week-01-foundations/day-007-observable-executor/code/build -j 2
+ctest --test-dir days/week-01-foundations/day-007-observable-executor/code/build --output-on-failure
 
-& ./days/day-007-observable-executor/code/build/executor_lab.exe --scenario normal
-& ./days/day-007-observable-executor/code/build/executor_lab.exe --scenario overload
-& ./days/day-007-observable-executor/code/build/executor_lab.exe --scenario deadline
-& ./days/day-007-observable-executor/code/build/executor_lab.exe --scenario slow-log
-& ./days/day-007-observable-executor/code/build/executor_lab.exe --self-test
-& ./days/day-007-observable-executor/code/build/executor_lab.exe --input ./days/day-007-observable-executor/data/requests.txt
+& ./days/week-01-foundations/day-007-observable-executor/code/build/executor_lab.exe --scenario normal
+& ./days/week-01-foundations/day-007-observable-executor/code/build/executor_lab.exe --scenario overload
+& ./days/week-01-foundations/day-007-observable-executor/code/build/executor_lab.exe --scenario deadline
+& ./days/week-01-foundations/day-007-observable-executor/code/build/executor_lab.exe --scenario slow-log
+& ./days/week-01-foundations/day-007-observable-executor/code/build/executor_lab.exe --self-test
+& ./days/week-01-foundations/day-007-observable-executor/code/build/executor_lab.exe --input ./days/week-01-foundations/day-007-observable-executor/data/requests.txt
 ```
 
 Linux/macOS 跳过 PowerShell 的 PATH 设置，使用上述 CMake 命令，运行可执行文件时去掉 `&` 和 `.exe`；本次没有在这些平台实测。MSVC 多配置生成器需在构建和 CTest 命令中指定 Debug 配置，并使用 `build/Debug/executor_lab.exe`。

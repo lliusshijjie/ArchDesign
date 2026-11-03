@@ -23,13 +23,13 @@
 
 | Day | 主题 | 案例 / 源码坐标 | 可复用模式 | 状态 |
 |---|---|---|---|---|
-| 01 | [线程池：把并发关进笼子](days/day-001-thread-pool/README.md) | OpenJDK `ThreadPoolExecutor`：`ctl`、`execute`、`runWorker`、`getTask`、`tryTerminate` | 状态与计数打包、准入控制、拒绝策略、两阶段关闭；延伸：单队列 vs 工作窃取 | ✅ |
-| 02 | [Redis 事件循环：单线程为什么能快](days/day-002-redis-event-loop/README.md) | `ae.c` / `ae_epoll.c` / `networking.c`：`aeProcessEvents`、`beforeSleep`、文件事件与时间事件 | Reactor、水平触发、beforeSleep 延迟写、时间事件 | ✅ |
-| 03 | [时间轮：海量定时器为什么能做到 O(1)](days/day-003-timing-wheel/README.md) | Netty `HashedWheelTimer`；Kafka `SystemTimer` / `TimingWheel` | 分桶、rounds、层级时间轮、原子取消 | ✅ |
-| 04 | [异步日志：别让磁盘拖慢业务线程](days/day-004-async-logging/README.md) | Log4j2 `AsyncLogger` + LMAX Disruptor；spdlog `async_logger` | 有界队列、溢出策略、批量消费、flush/shutdown | ✅ |
-| 05 | [内存分配器：malloc 为什么会成为瓶颈](days/day-005-memory-allocator/README.md) | jemalloc / tcmalloc / mimalloc；`size class`、slab、tcache、arena | 尺寸分级、线程缓存、批量 refill、large fallback | ✅ |
-| 06 | [无锁环形队列：Disruptor 的机械同情](days/day-006-lock-free-ring/README.md) | LMAX Disruptor；本课用 bounded MPMC ring 对照 | sequence、CAS、cache line padding、release/acquire、背压 | ✅ |
-| 07 | [**阶段实验**：有界、可观测的任务处理管线](days/day-007-observable-executor/README.md) | 组合 Day 01–06；准入、超时、慢日志、异常与关闭实验 | 资源边界、单次响应与物理回收、指标与关闭语义 | ✅ |
+| 01 | [线程池：把并发关进笼子](days/week-01-foundations/day-001-thread-pool/README.md) | OpenJDK `ThreadPoolExecutor`：`ctl`、`execute`、`runWorker`、`getTask`、`tryTerminate` | 状态与计数打包、准入控制、拒绝策略、两阶段关闭；延伸：单队列 vs 工作窃取 | ✅ |
+| 02 | [Redis 事件循环：单线程为什么能快](days/week-01-foundations/day-002-redis-event-loop/README.md) | `ae.c` / `ae_epoll.c` / `networking.c`：`aeProcessEvents`、`beforeSleep`、文件事件与时间事件 | Reactor、水平触发、beforeSleep 延迟写、时间事件 | ✅ |
+| 03 | [时间轮：海量定时器为什么能做到 O(1)](days/week-01-foundations/day-003-timing-wheel/README.md) | Netty `HashedWheelTimer`；Kafka `SystemTimer` / `TimingWheel` | 分桶、rounds、层级时间轮、原子取消 | ✅ |
+| 04 | [异步日志：别让磁盘拖慢业务线程](days/week-01-foundations/day-004-async-logging/README.md) | Log4j2 `AsyncLogger` + LMAX Disruptor；spdlog `async_logger` | 有界队列、溢出策略、批量消费、flush/shutdown | ✅ |
+| 05 | [内存分配器：malloc 为什么会成为瓶颈](days/week-01-foundations/day-005-memory-allocator/README.md) | jemalloc / tcmalloc / mimalloc；`size class`、slab、tcache、arena | 尺寸分级、线程缓存、批量 refill、large fallback | ✅ |
+| 06 | [无锁环形队列：Disruptor 的机械同情](days/week-01-foundations/day-006-lock-free-ring/README.md) | LMAX Disruptor；本课用 bounded MPMC ring 对照 | sequence、CAS、cache line padding、release/acquire、背压 | ✅ |
+| 07 | [**阶段实验**：有界、可观测的任务处理管线](days/week-01-foundations/day-007-observable-executor/README.md) | 组合 Day 01–06；准入、超时、慢日志、异常与关闭实验 | 资源边界、单次响应与物理回收、指标与关闭语义 | ✅ |
 
 ## W2 · 存储引擎与数据库内核
 
@@ -37,7 +37,7 @@
 
 | Day | 主题 | 案例 / 源码坐标 | 可复用模式 | 状态 |
 |---|---|---|---|---|
-| 08 | [LSM-tree：用顺序写换随机写](days/day-008-lsm-tree/README.md) | LevelDB / RocksDB：WAL → MemTable → Immutable → SSTable；compaction | 追加写、不可变 SST、tombstone、全量/分层合并、读写放大 | ✅ |
+| 08 | [LSM-tree：用顺序写换随机写](days/week-02-storage/day-008-lsm-tree/README.md) | LevelDB / RocksDB：WAL → MemTable → Immutable → SSTable；compaction | 追加写、不可变 SST、tombstone、全量/分层合并、读写放大 | ✅ |
 | 09 | WAL 与 group commit：fsync 的批量艺术 | PostgreSQL WAL（LSN、segment、checkpoint）；etcd WAL | 预写日志、批量 fsync、校验和、幂等恢复 | — |
 | 10 | Buffer Pool：数据库的页缓存 | InnoDB buffer pool：LRU young/old、midpoint insertion、flush list、doublewrite | 页缓存、写回、淘汰策略、二次写 | — |
 | 11 | B+ 树页面：索引的物理结构 | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | 槽页（slotted page）、有序数组 + 目录、锁耦合 | — |

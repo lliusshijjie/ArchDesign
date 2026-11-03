@@ -117,36 +117,45 @@
 
 ```text
 ArchDesign/
-├── README.md                 # 你在这里：课程说明与入口
-├── ROADMAP.md                # 60 次课路线图 + 进度
+├── README.md
+├── ROADMAP.md
 ├── templates/
-│   ├── lesson-template.md    # 每次文章模板
-│   ├── review-template.md    # 每周复盘模板
-│   └── workshop-template.md  # 阶段工作坊模板
+│   ├── lesson-template.md
+│   ├── review-template.md
+│   └── workshop-template.md
 ├── days/
-│   └── day-001-thread-pool/
-│       ├── README.md         # 本次正文
-│       └── code/             # 可运行代码
-│           ├── CMakeLists.txt
-│           ├── bounded_thread_pool.hpp
-│           └── main.cpp
-└── workshops/                # Day 14/28/42/56 之后的阶段工作坊
+│   ├── week-01-foundations/      # Day 01–07：执行与并发底座
+│   │   ├── day-001-thread-pool/
+│   │   │   ├── README.md
+│   │   │   └── code/
+│   │   ├── day-002-redis-event-loop/
+│   │   ├── ...
+│   │   └── day-007-observable-executor/
+│   ├── week-02-storage/          # Day 08–14：存储引擎与数据库内核
+│   │   └── day-008-lsm-tree/
+│   ├── week-03-redis/            # Day 15–21（待生成）
+│   ├── week-04-messaging/        # Day 22–28（待生成）
+│   ├── week-05-coordination/     # Day 29–35（待生成）
+│   ├── week-06-runtime/          # Day 36–42（待生成）
+│   ├── week-07-observability/    # Day 43–49（待生成）
+│   └── week-08-architecture/     # Day 50–56（待生成）
+└── workshops/                    # Day 14/28/42/56 之后的阶段工作坊
 ```
 
-后续每次新增一个 `days/day-XXX-<topic>/` 或 `workshops/workshop-<X>-<topic>/`，不覆盖旧内容。每篇课文自包含：不依赖聊天记录，也能独立复习。
+后续每次新增到 `days/week-XX-<theme>/day-XXX-<topic>/` 或 `workshops/workshop-<X>-<topic>/`，不覆盖旧内容。每篇课文自包含：不依赖聊天记录，也能独立复习。
 
 ## 5. 当前进度
 
 **总进度：8 / 60（核心 8/56，工作坊 0/4）**
 
-- [x] **Day 01 · 线程池：把并发关进笼子** — [文章](days/day-001-thread-pool/README.md) · [代码](days/day-001-thread-pool/code/)
-- [x] **Day 02 · Redis 事件循环** — [文章](days/day-002-redis-event-loop/README.md) · [代码](days/day-002-redis-event-loop/code/)
-- [x] **Day 03 · 时间轮** — [文章](days/day-003-timing-wheel/README.md) · [代码](days/day-003-timing-wheel/code/)
-- [x] **Day 04 · 异步日志** — [文章](days/day-004-async-logging/README.md) · [代码](days/day-004-async-logging/code/)
-- [x] **Day 05 · 内存分配器** — [文章](days/day-005-memory-allocator/README.md) · [代码](days/day-005-memory-allocator/code/)
-- [x] **Day 06 · 无锁环形队列 / Disruptor** — [文章](days/day-006-lock-free-ring/README.md) · [代码](days/day-006-lock-free-ring/code/)
-- [x] **Day 07 · 阶段实验：有界、可观测的任务处理管线** — [实验指导](days/day-007-observable-executor/README.md) · [阅读顺序](days/day-007-observable-executor/STUDY_GUIDE.md) · [代码](days/day-007-observable-executor/code/) · [实测报告](days/day-007-observable-executor/EXPERIMENT_REPORT.md)（C++20 构建与 CTest 7/7 通过）
-- [x] **Day 08 · LSM-tree：用顺序写换随机写** — [文章](days/day-008-lsm-tree/README.md) · [代码](days/day-008-lsm-tree/code/)
+- [x] **Day 01 · 线程池：把并发关进笼子** — [文章](days/week-01-foundations/day-001-thread-pool/README.md) · [代码](days/week-01-foundations/day-001-thread-pool/code/)
+- [x] **Day 02 · Redis 事件循环** — [文章](days/week-01-foundations/day-002-redis-event-loop/README.md) · [代码](days/week-01-foundations/day-002-redis-event-loop/code/)
+- [x] **Day 03 · 时间轮** — [文章](days/week-01-foundations/day-003-timing-wheel/README.md) · [代码](days/week-01-foundations/day-003-timing-wheel/code/)
+- [x] **Day 04 · 异步日志** — [文章](days/week-01-foundations/day-004-async-logging/README.md) · [代码](days/week-01-foundations/day-004-async-logging/code/)
+- [x] **Day 05 · 内存分配器** — [文章](days/week-01-foundations/day-005-memory-allocator/README.md) · [代码](days/week-01-foundations/day-005-memory-allocator/code/)
+- [x] **Day 06 · 无锁环形队列 / Disruptor** — [文章](days/week-01-foundations/day-006-lock-free-ring/README.md) · [代码](days/week-01-foundations/day-006-lock-free-ring/code/)
+- [x] **Day 07 · 阶段实验：有界、可观测的任务处理管线** — [实验指导](days/week-01-foundations/day-007-observable-executor/README.md) · [阅读顺序](days/week-01-foundations/day-007-observable-executor/STUDY_GUIDE.md) · [代码](days/week-01-foundations/day-007-observable-executor/code/) · [实测报告](days/week-01-foundations/day-007-observable-executor/EXPERIMENT_REPORT.md)（C++20 构建与 CTest 7/7 通过）
+- [x] **Day 08 · LSM-tree：用顺序写换随机写** — [文章](days/week-02-storage/day-008-lsm-tree/README.md) · [代码](days/week-02-storage/day-008-lsm-tree/code/)
 - [ ] Day 09 · WAL 与 group commit
 - [ ] 工作坊 A–D · [工作坊说明](workshops/README.md)
 
@@ -169,7 +178,7 @@ ArchDesign/
 我会：
 
 1. 读取 `ROADMAP.md` 中对应条目和上一篇的“下次预习”；
-2. 在 `days/day-XXX-<topic>/` 或 `workshops/` 下新增文章与代码；
+2. 在 `days/week-XX-<theme>/day-XXX-<topic>/` 或 `workshops/` 下新增文章与代码；
 3. 更新 `ROADMAP.md` 和本页进度；
 4. 保证新代码可编译、可运行，并给出验证命令。
 
@@ -211,4 +220,4 @@ Windows 11 + MinGW-w64 g++ (UCRT64) + CMake
 
 ---
 
-从 **[Day 01](days/day-001-thread-pool/README.md)** 开始。
+从 **[Day 01](days/week-01-foundations/day-001-thread-pool/README.md)** 开始。
