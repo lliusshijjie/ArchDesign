@@ -192,7 +192,13 @@ checkpoint 推进本地恢复的起点。旧 WAL 段能否删除，还取决于�
 
 ## 6. C++20 最小实现
 
-示例和四个行为实验集中在 [main.cpp](code/main.cpp)，构建和测试入口见 [CMakeLists.txt](code/CMakeLists.txt)。每个实验在独立临时目录创建 WAL。日志只保存整数键值对，便于把注意力留给组批、同步和恢复。
+完整代码在 [code/](code/)。
+
+- [mini_wal.hpp](code/mini_wal.hpp) 实现记录编码、后台组批、文件同步和日志重放。
+- [main.cpp](code/main.cpp) 提供四个行为实验和程序入口。每个实验在独立临时目录创建 WAL。
+- [CMakeLists.txt](code/CMakeLists.txt) 定义构建和 CTest 入口。
+
+日志只保存整数键值对，便于把注意力留给组批、同步和恢复。
 
 ### 6.1 记录格式和源码入口
 
