@@ -19,7 +19,7 @@
 - **结构**：4 个阶段 ×（14 个核心单元 + 1 个阶段工作坊）= 60 次。
 - **核心**：48 个主题深挖 + 8 次周复盘；另加 4 个阶段工作坊。
 - **节奏**：每两天 **19:00（Asia/Shanghai）** 推进下一次；留出一天消化、补代码和读源码。
-- **当前进度**：Day 01–09 材料已交付。下一课是 Day 10 · Buffer Pool，按隔日节奏预计在 **2026-11-07 19:00**，实际触发以会话里的定时任务为准。
+- **当前进度**：Day 01–10 材料已交付。下一课是 Day 11 · B+ 树页面，按隔日节奏预计在 **2026-11-07 19:00**，实际触发以会话里的定时任务为准。
 - **每次投入**：建议 90–120 分钟。
   - 45 分钟：读文章、画数据流；
   - 30 分钟：读指定源码/文档并做笔记；
@@ -147,7 +147,7 @@ ArchDesign/
 
 ## 5. 当前进度
 
-**总进度：9 / 60（核心 9/56，工作坊 0/4）**
+**总进度：10 / 60（核心 10/56，工作坊 0/4）**
 
 - [x] **Day 01 · 线程池：把并发关进笼子** — [文章](days/week-01-foundations/day-001-thread-pool/README.md) · [代码](days/week-01-foundations/day-001-thread-pool/code/)
 - [x] **Day 02 · Redis 事件循环** — [文章](days/week-01-foundations/day-002-redis-event-loop/README.md) · [代码](days/week-01-foundations/day-002-redis-event-loop/code/)
@@ -158,7 +158,8 @@ ArchDesign/
 - [x] **Day 07 · 阶段实验：有界、可观测的任务处理管线** — [实验指导](days/week-01-foundations/day-007-observable-executor/README.md) · [阅读顺序](days/week-01-foundations/day-007-observable-executor/STUDY_GUIDE.md) · [代码](days/week-01-foundations/day-007-observable-executor/code/) · [实测报告](days/week-01-foundations/day-007-observable-executor/EXPERIMENT_REPORT.md)（C++20 构建与 CTest 7/7 通过）
 - [x] **Day 08 · LSM-tree：用顺序写换随机写** — [文章](days/week-02-storage/day-008-lsm-tree/README.md) · [代码](days/week-02-storage/day-008-lsm-tree/code/)
 - [x] **Day 09 · WAL 与 group commit：fsync 的批量艺术** — [文章](days/week-02-storage/day-009-wal-group-commit/README.md) · [代码](days/week-02-storage/day-009-wal-group-commit/code/)
-- [ ] Day 10 · Buffer Pool
+- [x] **Day 10 · Buffer Pool：数据库的页缓存** — [文章](days/week-02-storage/day-010-buffer-pool/README.md) · [代码](days/week-02-storage/day-010-buffer-pool/code/)
+- [ ] Day 11 · B+ 树页面
 - [ ] 工作坊 A–D · [工作坊说明](workshops/README.md)
 
 完整 60 次课见 [ROADMAP.md](ROADMAP.md)。
