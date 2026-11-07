@@ -40,7 +40,7 @@
 | 08 | [LSM-tree：用顺序写换随机写](days/week-02-storage/day-008-lsm-tree/README.md) | LevelDB / RocksDB：WAL → MemTable → Immutable → SSTable；compaction | 追加写、不可变 SST、tombstone、全量/分层合并、读写放大 | ✅ |
 | 09 | [WAL 与 group commit：fsync 的批量艺术](days/week-02-storage/day-009-wal-group-commit/README.md) | PostgreSQL `RecordTransactionCommit` / `XLogFlush`，etcd WAL `Save` / `ReadAll` / `Repair` | 预写日志、批量 fsync、校验和、幂等恢复 | ✅ |
 | 10 | [Buffer Pool：数据库的页缓存](days/week-02-storage/day-010-buffer-pool/README.md) | InnoDB buffer pool：LRU young/old、midpoint insertion、flush list、doublewrite | 页缓存、pin、两段 LRU、脏页回写、二次写 | ✅ |
-| 11 | B+ 树页面：索引的物理结构 | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | 槽页（slotted page）、有序数组 + 目录、锁耦合 | — |
+| 11 | [B+ 树页面：索引的物理结构](days/week-02-storage/day-011-bplus-tree-page/README.md) | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | slotted page、slot 二分、删除留洞/compact、页分裂 | ✅ |
 | 12 | MVCC：快照读与版本链 | PostgreSQL `xmin/xmax` + snapshot；InnoDB `DB_TRX_ID/DB_ROLL_PTR` + undo + read view | 版本链、快照隔离、GC/purge、可见性判断 | — |
 | 13 | ARIES：崩溃恢复的教科书 | ARIES 论文；InnoDB redo/undo、LSN、CLR、fuzzy checkpoint | steal/no-force、生理日志、redo 幂等、undo 补偿 | — |
 | 14 | **周复盘**：Mini KV Engine | WAL + MemTable + SST + 恢复 + 简单 compaction | 把存储引擎拆成可替换组件 | — |
@@ -170,11 +170,11 @@
 
 ## 进度记录
 
-**总进度：10 / 60（核心 10/56，工作坊 0/4）**
+**总进度：11 / 60（核心 11/56，工作坊 0/4）**
 
 | 阶段 | 核心单元 | 核心完成 | 工作坊 | 工作坊完成 | 最大收获（一句话） |
 |---|---|---|---|---|---|
-| 1 | Day 01–14 | 10 / 14 | A | 0 / 1 | Buffer Pool 的难点不在缓存命中，而在 pin、脏页回写和崩溃一致性 |
+| 1 | Day 01–14 | 11 / 14 | A | 0 / 1 | 页内二分靠有序 slot，删除留洞靠 compact，分裂必须维护 sibling/父节点 |
 | 2 | Day 15–28 | 0 / 14 | B | 0 / 1 | |
 | 3 | Day 29–42 | 0 / 14 | C | 0 / 1 | |
 | 4 | Day 43–56 | 0 / 14 | D | 0 / 1 | |
