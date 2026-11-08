@@ -108,6 +108,7 @@
 
 建议每次按这个顺序使用：
 
+0. **如果进入新 week，先读 `00-primer.md`**，只求建立画面，不抠源码。
 1. **先读“一句话直觉/生活类比”**，能用自己的话解释“它在干什么”，再往下。
 2. **先不看代码**，读“背景”和“架构”，自己在纸上画一遍数据流。
 3. 读“源码关键路径”，把方法名和状态迁移记下来；不要逐行读整个文件。
@@ -128,7 +129,8 @@ ArchDesign/
 ├── templates/
 │   ├── lesson-template.md
 │   ├── review-template.md
-│   └── workshop-template.md
+│   ├── workshop-template.md
+│   └── week-primer-template.md
 ├── days/
 │   ├── week-01-foundations/      # Day 01–07：执行与并发底座
 │   │   ├── day-001-thread-pool/
@@ -138,16 +140,23 @@ ArchDesign/
 │   │   ├── ...
 │   │   └── day-007-observable-executor/
 │   ├── week-02-storage/          # Day 08–14：存储引擎与数据库内核
+│   │   ├── 00-database-primer.md
 │   │   ├── day-008-lsm-tree/
 │   │   └── day-009-wal-group-commit/
-│   ├── week-03-redis/            # Day 15–21（待生成）
-│   ├── week-04-messaging/        # Day 22–28（待生成）
-│   ├── week-05-coordination/     # Day 29–35（待生成）
-│   ├── week-06-runtime/          # Day 36–42（待生成）
-│   ├── week-07-observability/    # Day 43–49（待生成）
-│   └── week-08-architecture/     # Day 50–56（待生成）
+│   ├── week-03-redis/            # Day 15–21
+│   │   ├── 00-primer.md
+│   │   └── ...
+│   ├── week-04-messaging/        # Day 22–28（00-primer.md 待生成）
+│   ├── week-05-coordination/     # Day 29–35（00-primer.md 待生成）
+│   ├── week-06-runtime/          # Day 36–42（00-primer.md 待生成）
+│   ├── week-07-observability/    # Day 43–49（00-primer.md 待生成）
+│   └── week-08-architecture/     # Day 50–56（00-primer.md 待生成）
 └── workshops/                    # Day 14/28/42/56 之后的阶段工作坊
 ```
+
+**每个新 week 必须先有 `00-primer.md`，否则不进入该 week 的第一课。**
+
+Primer 不讲源码，先用生活类比、术语翻译和概念图建立画面；模板见 [week-primer-template.md](templates/week-primer-template.md)。W2 的 primer 命名为 `00-database-primer.md`。
 
 后续每次新增到 `days/week-XX-<theme>/day-XXX-<topic>/` 或 `workshops/workshop-<X>-<topic>/`，不覆盖旧内容。每篇课文自包含：不依赖聊天记录，也能独立复习。
 

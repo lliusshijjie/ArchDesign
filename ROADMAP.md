@@ -9,6 +9,7 @@
 ## 使用说明
 
 - 状态：`✅` 已完成，`—` 待学习。
+- **新 week 先读 primer**：每个 W 开始必须有 `days/week-XX/00-primer.md`；W2 为 [数据库基础补丁](days/week-02-storage/00-database-primer.md)，W3 为 [Redis 入门](days/week-03-redis/00-primer.md)。没有 primer 不进入该周第一课。
 - **语言偏好**：C++20 主讲，Rust 对照，Java 只作官方实现/概念参考；代码练习默认 C++，不要求 Java 实现。
 - 顺序有依赖：W1–W2 是底座，W3–W4 是中间件，W5–W8 是分布式与工程化。可以按兴趣微调，但建议不要跳过 W1 的线程池、W2 的 WAL 和 W5 的 Raft。
 - 核心周的第 7 个单元不引入新工具，而是把前 6 个单元的模式组合成一个能运行的小系统。
@@ -48,6 +49,8 @@
 | 14 | **周复盘**：Mini KV Engine | WAL + MemTable + SST + 恢复 + 简单 compaction | 把存储引擎拆成可替换组件 | — |
 
 ## W3 · Redis 专题
+
+> 先读 [Week 03 入门：Redis 专题](days/week-03-redis/00-primer.md)，再进入 Day 15。
 
 **本周问题**：一个单线程内存数据库，如何同时做到低延迟、可持久化、可复制、可水平扩展？
 
