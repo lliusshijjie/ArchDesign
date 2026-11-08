@@ -59,7 +59,7 @@ public:
         header.next_page = kInvalidPage;
         header.prev_page = kInvalidPage;
         header.lsn = 0;
-        store_header(header);
+        // store_header(header);
         data_.fill(std::byte{0});
         store_header(header);
     }
