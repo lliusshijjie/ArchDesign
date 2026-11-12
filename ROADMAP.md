@@ -45,7 +45,7 @@
 | 10 | [Buffer Pool：数据库的页缓存](days/week-02-storage/day-010-buffer-pool/README.md) | InnoDB buffer pool：LRU young/old、midpoint insertion、flush list、doublewrite | 页缓存、pin、两段 LRU、脏页回写、二次写 | ✅ |
 | 11 | [B+ 树页面：索引的物理结构](days/week-02-storage/day-011-bplus-tree-page/README.md) | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | slotted page、slot 二分、删除留洞/compact、页分裂 | ✅ |
 | 12 | [MVCC：快照读与版本链](days/week-02-storage/day-012-mvcc/README.md) | PostgreSQL `xmin/xmax` + snapshot；InnoDB `DB_TRX_ID/DB_ROLL_PTR` + undo + read view | 版本链、快照可见性、回滚、purge/VACUUM、写偏斜 | ✅ |
-| 13 | ARIES：崩溃恢复的教科书 | ARIES 论文；InnoDB redo/undo、LSN、CLR、fuzzy checkpoint | steal/no-force、生理日志、redo 幂等、undo 补偿 | — |
+| 13 | [ARIES：崩溃恢复的教科书](days/week-02-storage/day-013-aries/README.md) | ARIES 论文；InnoDB `log0recv.cc`、`log0log.cc`、`trx0rec.cc`；PostgreSQL `xlogrecovery.c`、`xlogutils.c` | 三阶段恢复、repeat history、pageLSN/recLSN、CLR、steal+no-force、模糊检查点 | ✅ |
 | 14 | **周复盘**：Mini KV Engine | WAL + MemTable + SST + 恢复 + 简单 compaction | 把存储引擎拆成可替换组件 | — |
 
 ## W3 · Redis 专题
@@ -175,11 +175,11 @@
 
 ## 进度记录
 
-**总进度：12 / 60（核心 12/56，工作坊 0/4）**
+**总进度：13 / 60（核心 13/56，工作坊 0/4）**
 
 | 阶段 | 核心单元 | 核心完成 | 工作坊 | 工作坊完成 | 最大收获（一句话） |
 |---|---|---|---|---|---|
-| 1 | Day 01–14 | 12 / 14 | A | 0 / 1 | MVCC 用版本链让读写不互等，但长事务会卡住清理，快照隔离也不等于可串行化 |
+| 1 | Day 01–14 | 13 / 14 | A | 0 / 1 | ARIES 的恢复是“先重演全部历史，再擦掉没结账的”：幂等靠 pageLSN，可重启动靠 CLR |
 | 2 | Day 15–28 | 0 / 14 | B | 0 / 1 | |
 | 3 | Day 29–42 | 0 / 14 | C | 0 / 1 | |
 | 4 | Day 43–56 | 0 / 14 | D | 0 / 1 | |
