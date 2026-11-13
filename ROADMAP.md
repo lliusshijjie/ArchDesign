@@ -46,7 +46,7 @@
 | 11 | [B+ 树页面：索引的物理结构](days/week-02-storage/day-011-bplus-tree-page/README.md) | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | slotted page、slot 二分、删除留洞/compact、页分裂 | ✅ |
 | 12 | [MVCC：快照读与版本链](days/week-02-storage/day-012-mvcc/README.md) | PostgreSQL `xmin/xmax` + snapshot；InnoDB `DB_TRX_ID/DB_ROLL_PTR` + undo + read view | 版本链、快照可见性、回滚、purge/VACUUM、写偏斜 | ✅ |
 | 13 | [ARIES：崩溃恢复的教科书](days/week-02-storage/day-013-aries/README.md) | ARIES 论文；InnoDB `log0recv.cc`、`log0log.cc`、`trx0rec.cc`；PostgreSQL `xlogrecovery.c`、`xlogutils.c` | 三阶段恢复、repeat history、pageLSN/recLSN、CLR、steal+no-force、模糊检查点 | ✅ |
-| 14 | **周复盘**：Mini KV Engine | WAL + MemTable + SST + 恢复 + 简单 compaction | 把存储引擎拆成可替换组件 | — |
+| 14 | [**周复盘**：Mini KV Engine](days/week-02-storage/day-014-mini-kv/README.md) | WAL + MemTable + SST + 恢复 + 简单 compaction | WAL 校验/截断、组件边界、故障注入、全量合并 | ✅ |
 
 ## W3 · Redis 专题
 
@@ -151,6 +151,8 @@
 
 **顺序**：`Day 01–14 → A → Day 15–28 → B → Day 29–42 → C → Day 43–56 → D`。
 
+**工作坊进度**：A `—` / B `—` / C `—` / D `—`。
+
 ---
 
 ## 复盘日产出的固定结构
@@ -175,11 +177,11 @@
 
 ## 进度记录
 
-**总进度：13 / 60（核心 13/56，工作坊 0/4）**
+**总进度：14 / 60（核心 14/56，工作坊 0/4）**
 
 | 阶段 | 核心单元 | 核心完成 | 工作坊 | 工作坊完成 | 最大收获（一句话） |
 |---|---|---|---|---|---|
-| 1 | Day 01–14 | 13 / 14 | A | 0 / 1 | ARIES 的恢复是“先重演全部历史，再擦掉没结账的”：幂等靠 pageLSN，可重启动靠 CLR |
+| 1 | Day 01–14 | 14 / 14 | A | 0 / 1 | 把 WAL/MemTable/SST/compaction 装起来后，才真正看见“顺序、截断、幂等”这些不变量 |
 | 2 | Day 15–28 | 0 / 14 | B | 0 / 1 | |
 | 3 | Day 29–42 | 0 / 14 | C | 0 / 1 | |
 | 4 | Day 43–56 | 0 / 14 | D | 0 / 1 | |
