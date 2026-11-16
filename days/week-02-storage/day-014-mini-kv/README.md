@@ -487,6 +487,13 @@ W2 的核心单元到此结束。下一次不是 Day 15，而是 **工作坊 A�
 然后判断：当前设计在哪个故障点不成立？
 ```
 
+已完成：**[工作坊 A · 实验报告](../workshop-a-storage-recovery/README.md)**
+
+结论先行：在“SST 落盘 → manifest 原子提交 → 最后截断 WAL”的顺序下，
+43 个场景里 36 个严格不变量场景 **0 丢失、0 幽灵键、0 复活**；
+而把“截断 WAL”提前一步（X01）就丢 10/13，manifest 不 fsync（X02）丢 15/19。
+被测系统是本课 Mini KV 的加固版：[`engine.hpp`](../workshop-a-storage-recovery/code/engine.hpp)。
+
 工作坊 A 之后，才进入 **W3 · Redis 专题**。
 
 进入 W3 前先读 [Week 03 入门：Redis 专题](../../week-03-redis/00-primer.md)。
@@ -503,3 +510,4 @@ W2 的核心单元到此结束。下一次不是 Day 15，而是 **工作坊 A�
 - Day 12：[MVCC](../day-012-mvcc/README.md)
 - Day 13：[ARIES](../day-013-aries/README.md)
 - 工作坊：[阶段工作坊 A–D](../../../workshops/README.md)
+- 工作坊 A：[存储引擎压测与崩溃恢复](../workshop-a-storage-recovery/README.md)

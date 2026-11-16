@@ -19,12 +19,16 @@ Day 43–56  →  工作坊 D
 
 ## 四个工作坊
 
-| 工作坊 | 插入点 | 主题 | 核心问题 |
-|---|---|---|---|
-| **A** | Day 14 后 | 存储引擎压测与崩溃恢复 | 进程在任意位置崩溃，恢复后数据是否仍然自洽？ |
-| **B** | Day 28 后 | 消息系统故障注入 | 重复、乱序、积压、消费者崩溃时，投递语义还成立吗？ |
-| **C** | Day 42 后 | 调度与锁的混沌实验 | 时钟偏移、网络分区、lease 过期时，会不会出现双执行？ |
-| **D** | Day 56 后 | 个人项目迁移工作坊 | 哪 3 个模式值得带回自己的项目？如何验证、如何回滚？ |
+| 工作坊 | 插入点 | 主题 | 核心问题 | 状态 |
+|---|---|---|---|---|
+| **A** | Day 14 后 | 存储引擎压测与崩溃恢复 | 进程在任意位置崩溃，恢复后数据是否仍然自洽？ | ✅ [报告](../days/week-02-storage/workshop-a-storage-recovery/README.md) |
+| **B** | Day 28 后 | 消息系统故障注入 | 重复、乱序、积压、消费者崩溃时，投递语义还成立吗？ | — |
+| **C** | Day 42 后 | 调度与锁的混沌实验 | 时钟偏移、网络分区、lease 过期时，会不会出现双执行？ | — |
+| **D** | Day 56 后 | 个人项目迁移工作坊 | 哪 3 个模式值得带回自己的项目？如何验证、如何回滚？ | — |
+
+**工作坊 A 实测**：14 个崩溃点位 + 4 种磁盘损坏 + 3 种错误配置，共 43 个场景；
+安全配置下 36 个严格不变量场景 0 丢失、0 幽灵键、0 复活；错误配置下丢 10–15 条或 fail-stop。
+代码在 [workshop-a-storage-recovery/code](../days/week-02-storage/workshop-a-storage-recovery/code/)，`ctest` 1/1 通过（约 25 秒）。
 
 ## 固定产出
 
@@ -40,15 +44,22 @@ Day 43–56  →  工作坊 D
 
 ## 目录约定
 
+工作坊的产出放在**它所属阶段最后一周的目录下**，和核心课放在一起：
+
 ```text
+days/
+├── week-02-storage/
+│   ├── day-014-mini-kv/
+│   └── workshop-a-storage-recovery/    # 工作坊 A：README.md + code/
+├── week-04-messaging/                  # 工作坊 B（落地时）
+├── week-06-runtime/                    # 工作坊 C（落地时）
+└── week-08-architecture/               # 工作坊 D（落地时）
+
 workshops/
-├── README.md
-├── workshop-a-storage-recovery/
-│   ├── README.md
-│   └── code/
-├── workshop-b-messaging-faults/
-├── workshop-c-scheduler-chaos/
-└── workshop-d-project-migration/
+└── README.md                           # 本索引与跨阶段约定
 ```
+
+这样安排的理由：工作坊的被测系统就是前 14 天的代码，放在同一个周目录里，
+复习时不必在 `days/` 和 `workshops/` 之间跳转；`workshops/` 只保留索引与模板说明。
 
 工作坊代码可以是脚本、harness 或最小复现，不要求和核心课一样完整，但必须能重复运行。

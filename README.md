@@ -19,7 +19,7 @@
 - **结构**：4 个阶段 ×（14 个核心单元 + 1 个阶段工作坊）= 60 次。
 - **核心**：48 个主题深挖 + 8 次周复盘；另加 4 个阶段工作坊。
 - **节奏**：每两天 **19:00（Asia/Shanghai）** 推进下一次；留出一天消化、补代码和读源码。
-- **当前进度**：Day 01–14 已交付，W2 核心单元完成。下一课是 **工作坊 A · 存储引擎压测与崩溃恢复**；11/15 暂停一次用于复习，下一次为 **2026-11-16 19:00**，之后恢复每 48 小时。
+- **当前进度**：Day 01–14 与 **工作坊 A（存储引擎压测与崩溃恢复）** 已交付。下一课是 **Day 15 · 渐进式 rehash**，进入 W3 · Redis 专题；进入 W3 前先读 [Week 03 入门](days/week-03-redis/00-primer.md)。下一次为 **2026-11-18 19:00**，之后保持每 48 小时。
 - **每次投入**：建议 90–120 分钟。
   - 45 分钟：读文章、画数据流；
   - 30 分钟：读指定源码/文档并做笔记；
@@ -142,7 +142,9 @@ ArchDesign/
 │   ├── week-02-storage/          # Day 08–14：存储引擎与数据库内核
 │   │   ├── 00-database-primer.md
 │   │   ├── day-008-lsm-tree/
-│   │   └── day-009-wal-group-commit/
+│   │   ├── ...
+│   │   ├── day-014-mini-kv/
+│   │   └── workshop-a-storage-recovery/   # 工作坊 A：压测 + 崩溃恢复（43 个场景）
 │   ├── week-03-redis/            # Day 15–21
 │   │   ├── 00-primer.md
 │   │   └── ...
@@ -151,18 +153,19 @@ ArchDesign/
 │   ├── week-06-runtime/          # Day 36–42（00-primer.md 待生成）
 │   ├── week-07-observability/    # Day 43–49（00-primer.md 待生成）
 │   └── week-08-architecture/     # Day 50–56（00-primer.md 待生成）
-└── workshops/                    # Day 14/28/42/56 之后的阶段工作坊
+└── workshops/                    # 工作坊索引与通用约定（产出放在各自阶段的周目录）
+    └── README.md
 ```
 
 **每个新 week 必须先有 `00-primer.md`，否则不进入该 week 的第一课。**
 
 Primer 不讲源码，先用生活类比、术语翻译和概念图建立画面；模板见 [week-primer-template.md](templates/week-primer-template.md)。W2 的 primer 命名为 `00-database-primer.md`。
 
-后续每次新增到 `days/week-XX-<theme>/day-XXX-<topic>/` 或 `workshops/workshop-<X>-<topic>/`，不覆盖旧内容。每篇课文自包含：不依赖聊天记录，也能独立复习。
+后续每次新增到 `days/week-XX-<theme>/day-XXX-<topic>/`；工作坊放在同一周目录下的 `workshop-<X>-<topic>/`，不覆盖旧内容。每篇课文自包含：不依赖聊天记录，也能独立复习。
 
 ## 5. 当前进度
 
-**总进度：14 / 60（核心 14/56，工作坊 0/4）**
+**总进度：15 / 60（核心 14/56，工作坊 1/4）**
 
 - [x] **Day 01 · 线程池：把并发关进笼子** — [文章](days/week-01-foundations/day-001-thread-pool/README.md) · [代码](days/week-01-foundations/day-001-thread-pool/code/)
 - [x] **Day 02 · Redis 事件循环** — [文章](days/week-01-foundations/day-002-redis-event-loop/README.md) · [代码](days/week-01-foundations/day-002-redis-event-loop/code/)
@@ -178,7 +181,8 @@ Primer 不讲源码，先用生活类比、术语翻译和概念图建立画面�
 - [x] **Day 12 · MVCC：快照读与版本链** — [文章](days/week-02-storage/day-012-mvcc/README.md) · [代码](days/week-02-storage/day-012-mvcc/code/)
 - [x] **Day 13 · ARIES：崩溃恢复的教科书** — [文章](days/week-02-storage/day-013-aries/README.md) · [代码](days/week-02-storage/day-013-aries/code/)（C++20 构建与 CTest 9/9 通过）
 - [x] **Day 14 · 周复盘：Mini KV Engine** — [文章](days/week-02-storage/day-014-mini-kv/README.md) · [代码](days/week-02-storage/day-014-mini-kv/code/)
-- [ ] **工作坊 A · 存储引擎压测与崩溃恢复** — [工作坊说明](workshops/README.md)
+- [x] **工作坊 A · 存储引擎压测与崩溃恢复** — [实验报告](days/week-02-storage/workshop-a-storage-recovery/README.md) · [代码](days/week-02-storage/workshop-a-storage-recovery/code/)（43 个场景 / 3 组基准，安全配置 36 个严格场景 0 丢失；C++20 构建与 CTest 1/1 通过，约 25 秒）
+- [ ] **Day 15 · 渐进式 rehash** — 进入 W3 前先读 [Week 03 入门](days/week-03-redis/00-primer.md)
 - [ ] 工作坊 B–D
 
 完整 60 次课见 [ROADMAP.md](ROADMAP.md)。
@@ -200,7 +204,7 @@ Primer 不讲源码，先用生活类比、术语翻译和概念图建立画面�
 我会：
 
 1. 读取 `ROADMAP.md` 中对应条目和上一篇的“下次预习”；
-2. 在 `days/week-XX-<theme>/day-XXX-<topic>/` 或 `workshops/` 下新增文章与代码；
+2. 在 `days/week-XX-<theme>/day-XXX-<topic>/`（工作坊则在同一周目录下的 `workshop-<X>-<topic>/`）新增文章与代码；
 3. 更新 `ROADMAP.md` 和本页进度；
 4. 保证新代码可编译、可运行，并给出验证命令。
 
