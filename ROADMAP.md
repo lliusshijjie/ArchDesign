@@ -57,7 +57,7 @@
 | Day | 主题 | 案例 / 源码坐标 | 可复用模式 | 状态 |
 |---|---|---|---|---|
 | 15 | [渐进式 rehash：大字典不能一次搬完](days/week-03-redis/day-015-incremental-rehash/README.md) | Redis `dict.c`：`dictRehash`、`rehashidx`、双表、`dictRehashMilliseconds`、`dictScanDefrag` | 增量迁移、双结构并存、摊还成本、整桶搬迁、空桶预算、反序游标 | ✅ |
-| 16 | 过期删除与内存淘汰 | `expire.c`、`evict.c`：惰性删除、active expire、LRU/LFU 采样、eviction pool | 惰性清理、采样近似、策略分离、内存水位 | — |
+| 16 | [过期删除与内存淘汰](days/week-03-redis/day-016-expire-evict/README.md) | `expire.c`、`evict.c`：惰性删除、active expire、LRU/LFU 采样、eviction pool | 惰性清理、采样近似、策略分离、内存水位 | ✅ |
 | 17 | RDB 与 AOF：快照、COW 与日志重写 | `rdb.c`、`aof.c`：fork + COW、`fsync` 策略、AOF rewrite | 快照、写时复制、日志压缩、持久性取舍 | — |
 | 18 | 主从复制：PSYNC、backlog 与断点续传 | `replication.c`：repl offset、backlog ring、full resync、WAIT | 复制日志、环形缓冲、可恢复同步、延迟监控 | — |
 | 19 | Redis Cluster：槽、重定向与去中心化故障转移 | `cluster.c`：16384 slots、MOVED/ASK、gossip、failover、quorum | 分片、重定向、成员协议、脑裂边界 | — |
@@ -177,11 +177,11 @@
 
 ## 进度记录
 
-**总进度：16 / 60（核心 15/56，工作坊 1/4）**
+**总进度：17 / 60（核心 16/56，工作坊 1/4）**
 
 | 阶段 | 核心单元 | 核心完成 | 工作坊 | 工作坊完成 | 最大收获（一句话） |
 |---|---|---|---|---|---|
 | 1 | Day 01–14 | 14 / 14 | A | 1 / 1 | 把 WAL/MemTable/SST/compaction 装起来后，才真正看见“顺序、截断、幂等”这些不变量；工作坊 A 又把它们逐条压进断电实验：安全顺序下 36 个严格场景 0 丢失，而把“截断 WAL”提前一步就丢 10/13 |
-| 2 | Day 15–28 | 1 / 14 | B | 0 / 1 | 双表 + 游标把一次 O(n) 扩容摊成每次操作搬 1 桶：迁移期读要覆盖两张表、写只进新表，收尾判据是旧表 used 归零而不是游标走到表尾 |
+| 2 | Day 15–28 | 2 / 14 | B | 0 / 1 | 双表 + 游标把一次 O(n) 扩容摊成每步搬 1 桶；过期则把「删除」拆成可见性、抽样回收、淘汰三条路径——回收速度由抽样率决定，25% 的 CPU 预算在常态下只用约 1% |
 | 3 | Day 29–42 | 0 / 14 | C | 0 / 1 | |
 | 4 | Day 43–56 | 0 / 14 | D | 0 / 1 | |
