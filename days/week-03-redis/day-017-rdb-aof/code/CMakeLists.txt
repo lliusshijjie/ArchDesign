@@ -11,11 +11,39 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
 endif()
 
-add_executable(persistence_demo main.cpp)
+# 持久化的每个概念一个模块：bytes / page_store / rdb / mem_fs / resp / aof / engine。
+add_library(day17_persistence STATIC
+    src/bytes.cpp
+    src/page_store.cpp
+    src/rdb.cpp
+    src/mem_fs.cpp
+    src/resp.cpp
+    src/aof.cpp
+    src/engine.cpp
+)
+target_include_directories(day17_persistence PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+add_executable(persistence_demo
+    main.cpp
+    demo.cpp
+    bench.cpp
+    tests/test_support.cpp
+    tests/test_registry.cpp
+    tests/tests_cow_rdb.cpp
+    tests/tests_aof.cpp
+    tests/tests_rewrite_model.cpp
+)
+target_link_libraries(persistence_demo PRIVATE day17_persistence)
+target_include_directories(persistence_demo PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
 if (MSVC)
+    target_compile_options(day17_persistence PRIVATE /W4 /permissive-)
     target_compile_options(persistence_demo PRIVATE /W4 /permissive-)
 else()
+    target_compile_options(day17_persistence PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(persistence_demo PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 

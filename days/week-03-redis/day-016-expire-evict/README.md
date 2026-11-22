@@ -662,9 +662,28 @@ day-016-expire-evict/
 ├── README.md
 └── code/
     ├── CMakeLists.txt
-    ├── expire_evict.hpp     # Store：两张表、惰性过期、主动过期、淘汰
-    └── main.cpp             # 14 个 CTest 用例 + 3 个演示 + 3 组基准
+    ├── main.cpp                  # 命令行入口（--case/--demo/--bench）
+    ├── demo.cpp                  # 三条机制的讲解式输出
+    ├── bench.cpp                 # 回收速率 / CPU / 淘汰精度
+    ├── src/
+    │   ├── common.hpp            # Config / Entry / Policy / ExpireFlags
+    │   ├── clock.hpp/.cpp        # 可注入的逻辑时钟
+    │   ├── eviction_pool.hpp/.cpp  # 16 槽候选池
+    │   ├── store.hpp             # Store 接口与状态
+    │   ├── store_core.cpp        # 槽位/expires、内存账、SET/GET/DEL/TTL
+    │   ├── store_expire.cpp      # 惰性过期、删除、抽样、active cycle
+    │   ├── store_evict.cpp       # 填池、单次淘汰、perform_evictions
+    │   └── store_access.cpp      # LRU/LFU 时钟、衰减、热度更新
+    └── tests/
+        ├── test_support.hpp/.cpp # 断言与公共构造
+        ├── test_registry.cpp     # 14 个用例的注册表
+        ├── tests_semantics.cpp   # SET/GET/DEL/TTL + 惰性读写
+        ├── tests_expire.cpp      # 主动过期 + 预算 + 比例反馈
+        ├── tests_evict.cpp       # 五种淘汰策略 + 候选池
+        └── tests_replica_model.cpp # 从库隐藏 + 4000 步模型
 ```
+
+拆分原则：**一个文件只回答一个问题**。`store.hpp` 只描述状态与接口；`store_core.cpp` 负责“表怎么维护”；`store_expire.cpp` 负责“什么时候删”；`store_evict.cpp` 负责“内存满了删谁”；`store_access.cpp` 负责“热度怎么记”。测试按不变量分组，演示/基准不再和测试挤在一个 `main.cpp` 里。
 
 核心类型：
 
@@ -828,13 +847,13 @@ GET k0 -> nil；这会顺手删掉它：size=2  lazy_expired=1
 
 | effort | 1000 次惰性访问后 | 主动清空周期 | 主动 CPU | 模拟墙钟 |
 |---|---|---|---|---|
-| 1 | 24.81 MB，仍剩 99000 个 | 310 | 49 ms | 31 s |
-| 10 | 24.81 MB，仍剩 99000 个 | 31 | 49 ms | 3.1 s |
+| 1 | 24.81 MB，仍剩 99000 个 | 310 | 38 ms | 31 s |
+| 10 | 24.81 MB，仍剩 99000 个 | 31 | 31 ms | 3.1 s |
 
 三个结论：
 
 1. **惰性回收是杯水车薪**：访问 1000 次只删 1000 个（1%），剩下 99000 个继续占 24.8MB。
-2. **主动回收的总 CPU 几乎不变**（49ms vs 49ms）：100k 次删除就是 100k 次删除，effort 改变的是「多久删完」，不是「总共花多少」。
+2. **主动回收的总 CPU 基本不变**（38ms vs 31ms，同一量级）：100k 次删除就是 100k 次删除，effort 改变的是「多久删完」，不是「总共花多少」。
 3. **回收速度 ≈ 抽样率**：310 个周期 × 100ms = 31 秒，正好是 100k / 3200；effort=10 时 3.1 秒。
 
 **实验 2：主动过期的 CPU 占用（20 万 key）**
@@ -1035,3 +1054,4 @@ pop_best();
 - antirez, *Redis persistence demystified*；*Random notes on improving the Redis LRU algorithm*（采样 LRU 的设计动机）。
 - Caffeine 文档：*TinyLFU / W-TinyLFU*（作为「采样淘汰」的下一代对照）。
 - 本仓库：[Day 15 渐进式 rehash](../day-015-incremental-rehash/README.md)、[Day 03 时间轮](../../week-01-foundations/day-003-timing-wheel/README.md)、[Day 10 Buffer Pool](../../week-02-storage/day-010-buffer-pool/README.md)。
+- 本课代码：[src/](code/src/)、[tests/](code/tests/)、[main.cpp](code/main.cpp)、[CMakeLists.txt](code/CMakeLists.txt)。

@@ -798,9 +798,27 @@ day-017-rdb-aof/
 ├── README.md
 └── code/
     ├── CMakeLists.txt
-    ├── persistence.hpp   # PageStore / Snapshot / RDB / MemFs / RESP / AofWriter / Engine
-    └── main.cpp          # 18 个 CTest 用例 + demo + bench
+    ├── main.cpp                  # 命令行入口（--case/--demo/--bench）
+    ├── demo.cpp                  # RDB/COW/rewrite/fsync 演示
+    ├── bench.cpp                 # 编解码 / COW / rewrite 基准
+    ├── src/
+    │   ├── common.hpp            # 基础类型 + 小工具
+    │   ├── bytes.hpp/.cpp        # 字节序 + Redis CRC64
+    │   ├── page_store.hpp/.cpp   # 页式 COW 键空间
+    │   ├── rdb.hpp/.cpp          # RDB 编解码
+    │   ├── mem_fs.hpp/.cpp       # page cache / 掉电模型
+    │   ├── resp.hpp/.cpp         # RESP 编解码
+    │   ├── aof.hpp/.cpp          # AOF 写入 + fsync + 加载
+    │   └── engine.hpp/.cpp       # 命令、快照、rewrite、恢复的门面
+    └── tests/
+        ├── test_support.hpp/.cpp # 断言与公共构造
+        ├── test_registry.cpp     # 18 个用例的注册表
+        ├── tests_cow_rdb.cpp     # COW + RDB
+        ├── tests_aof.cpp         # RESP + fsync + 截断/损坏
+        └── tests_rewrite_model.cpp # rewrite 崩溃点 + 优先级 + 参考模型
 ```
+
+拆分原则：**数据格式、存储结构、I/O 策略、编排逻辑分开**。`rdb.cpp` 不知道 AOF 的存在；`aof.cpp` 只依赖 `MemFs/RESP/PageStore`；`engine.cpp` 是唯一把“命令 → 快照/日志 → 恢复”串起来的地方。测试按失败模式分组，`main.cpp` 只做命令行分发。
 
 核心类型：
 
@@ -1010,9 +1028,12 @@ ctest --test-dir build --output-on-failure
 Windows + MinGW 也可以不用 CMake，直接：
 
 ```bash
-g++ -std=c++20 -O2 -Wall -Wextra -Wpedantic main.cpp -o persistence_demo.exe
+g++ -std=c++20 -O2 -Wall -Wextra -Wpedantic -I. -Isrc \
+    main.cpp demo.cpp bench.cpp tests/*.cpp src/*.cpp -o persistence_demo.exe
 ./persistence_demo.exe
 ```
+
+（Windows PowerShell 不会替原生程序展开 `*.cpp`，直接用上面的 CMake 命令即可。）
 
 其他入口：
 
@@ -1269,4 +1290,4 @@ g++ -std=c++20 -O2 -Wall -Wextra -Wpedantic main.cpp -o persistence_demo.exe
 - antirez, *Redis persistence demystified*：<https://oldblog.antirez.com/post/redis-persistence-demystified.html>。
 - Linux man pages：[fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html)、[fsync(2)](https://man7.org/linux/man-pages/man2/fsync.2.html)、[rename(2)](https://man7.org/linux/man-pages/man2/rename.2.html)。
 - 本仓库：[Day 09 WAL 与 group commit](../../week-02-storage/day-009-wal-group-commit/README.md)、[Day 14 Mini KV](../../week-02-storage/day-014-mini-kv/README.md)、[Day 16 过期与淘汰](../day-016-expire-evict/README.md)。
-- 本课代码：[persistence.hpp](code/persistence.hpp)、[main.cpp](code/main.cpp)、[CMakeLists.txt](code/CMakeLists.txt)。
+- 本课代码：[src/](code/src/)、[tests/](code/tests/)、[main.cpp](code/main.cpp)、[CMakeLists.txt](code/CMakeLists.txt)。

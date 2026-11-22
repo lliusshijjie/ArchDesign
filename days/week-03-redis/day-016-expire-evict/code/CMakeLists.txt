@@ -11,11 +11,39 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
 endif()
 
-add_executable(expire_evict_demo main.cpp)
+# 核心机制拆成独立模块，测试/演示/基准只依赖这个小库。
+add_library(day16_core STATIC
+    src/clock.cpp
+    src/eviction_pool.cpp
+    src/store_core.cpp
+    src/store_access.cpp
+    src/store_expire.cpp
+    src/store_evict.cpp
+)
+target_include_directories(day16_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+add_executable(expire_evict_demo
+    main.cpp
+    demo.cpp
+    bench.cpp
+    tests/test_support.cpp
+    tests/test_registry.cpp
+    tests/tests_semantics.cpp
+    tests/tests_expire.cpp
+    tests/tests_evict.cpp
+    tests/tests_replica_model.cpp
+)
+target_link_libraries(expire_evict_demo PRIVATE day16_core)
+target_include_directories(expire_evict_demo PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
 if (MSVC)
+    target_compile_options(day16_core PRIVATE /W4 /permissive-)
     target_compile_options(expire_evict_demo PRIVATE /W4 /permissive-)
 else()
+    target_compile_options(day16_core PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(expire_evict_demo PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
