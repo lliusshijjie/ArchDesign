@@ -19,7 +19,7 @@
 - **结构**：4 个阶段 ×（14 个核心单元 + 1 个阶段工作坊）= 60 次。
 - **核心**：48 个主题深挖 + 8 次周复盘；另加 4 个阶段工作坊。
 - **节奏**：每两天 **19:00（Asia/Shanghai）** 推进下一次；留出一天消化、补代码和读源码。
-- **当前进度**：Day 01–17 与 **工作坊 A（存储引擎压测与崩溃恢复）** 已交付。下一课是 **Day 18 · 主从复制：PSYNC、backlog 与断点续传**（W3 · Redis 专题内，[primer](days/week-03-redis/00-primer.md) 已就绪）。下一次为 **2026-11-24 19:00**，之后保持每 48 小时。
+- **当前进度**：Day 01–18 与 **工作坊 A（存储引擎压测与崩溃恢复）** 已交付。下一课是 **Day 19 · Redis Cluster：槽、重定向与去中心化故障转移**（W3 · Redis 专题内，[primer](days/week-03-redis/00-primer.md) 已就绪）。下一次为 **2026-11-26 19:00**，之后保持每 48 小时。
 - **每次投入**：建议 90–120 分钟。
   - 45 分钟：读文章、画数据流；
   - 30 分钟：读指定源码/文档并做笔记；
@@ -185,7 +185,7 @@ Primer 不讲源码，先用生活类比、术语翻译和概念图建立画面�
 
 ## 5. 当前进度
 
-**总进度：18 / 60（核心 17/56，工作坊 1/4）**
+**总进度：19 / 60（核心 18/56，工作坊 1/4）**
 
 - [x] **Day 01 · 线程池：把并发关进笼子** — [文章](days/week-01-foundations/day-001-thread-pool/README.md) · [代码](days/week-01-foundations/day-001-thread-pool/code/)
 - [x] **Day 02 · Redis 事件循环** — [文章](days/week-01-foundations/day-002-redis-event-loop/README.md) · [代码](days/week-01-foundations/day-002-redis-event-loop/code/)
@@ -205,7 +205,8 @@ Primer 不讲源码，先用生活类比、术语翻译和概念图建立画面�
 - [x] **Day 15 · 渐进式 rehash：大字典不能一次搬完** — [文章](days/week-03-redis/day-015-incremental-rehash/README.md) · [代码](days/week-03-redis/day-015-incremental-rehash/code/)（C++20 构建与 CTest 11/11 通过；20 万插入 p99 0.6µs，一次性 rehash 13.9ms）
 - [x] **Day 16 · 过期删除与内存淘汰：内存满了，谁该走？** — [文章](days/week-03-redis/day-016-expire-evict/README.md) · [代码](days/week-03-redis/day-016-expire-evict/code/)（C++20 构建与 CTest 14/14 通过；10 万过期键主动回收 310 个周期 / 模拟 31s，采样 5 淘汰真冷 20% 命中 68.7%）
 - [x] **Day 17 · RDB 与 AOF：快照、COW 与日志重写** — [文章](days/week-03-redis/day-017-rdb-aof/README.md) · [代码](days/week-03-redis/day-017-rdb-aof/code/)（C++20 构建与 18/18 CTest 通过；5 万 key RDB 2.49MB，COW 改 64/1024 页复制 448KB，AOF 3.33MB → 649KB）
-- [ ] **Day 18 · 主从复制：PSYNC、backlog 与断点续传** — 下一次（2026-11-24 19:00）
+- [x] **Day 18 · 主从复制：PSYNC、backlog 与断点续传** — [文章](days/week-03-redis/day-018-replication/README.md) · [代码](days/week-03-redis/day-018-replication/code/)（C++20 构建与 14/14 CTest 通过；10 万条 SET offset=4.58MB，backlog 1MB，部分续传 457KB）
+- [ ] **Day 19 · Redis Cluster：槽、重定向与去中心化故障转移** — 下一次（2026-11-26 19:00）
 - [ ] 工作坊 B–D
 
 完整 60 次课见 [ROADMAP.md](ROADMAP.md)。
