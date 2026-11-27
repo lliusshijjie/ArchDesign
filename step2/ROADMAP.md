@@ -18,7 +18,7 @@
 
 | Day | 专题 | 主题路径 | 实验或验收问题 | 状态 |
 |---|---|---|---|---|
-| 01 | [精确 Top-K 与 Recall@K](week-01-qdrant/day-001-exact-top-k/README.md) | `exact-top-k` | 用精确搜索作基线，验证漏掉最近点时的召回率 | ✅ |
+| 01 | [精确 Top-K 与 Recall@K](week-01-qdrant/day-001-exact-top-k/README.md) | `exact-top-k` | 对照全排序和有界堆，测候选漏失与过滤顺序对召回率的影响 | ✅ |
 | 02 | HNSW 的层级和图搜索 | `hnsw-graph-search` | 在小图上逐步记录入口、候选队列和访问集合 | — |
 | 03 | HNSW 参数与查询预算 | `hnsw-search-budget` | 固定图和查询，扫 `hnsw_ef`，对照召回率与距离计算次数 | — |
 | 04 | Payload 过滤与搜索策略 | `payload-filtering` | 改变过滤选择性，对照先筛后扫和图搜索的候选范围 | — |

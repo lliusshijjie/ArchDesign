@@ -7,5 +7,6 @@ set_target_properties(exact_top_k PROPERTIES CXX_EXTENSIONS OFF)
 
 enable_testing()
 add_test(NAME candidate_recall COMMAND exact_top_k)
-set_tests_properties(candidate_recall PROPERTIES PASS_REGULAR_EXPRESSION "Recall@3: 0.6667")
+add_test(NAME exact_top_k_algorithms COMMAND exact_top_k --compare)
+add_test(NAME filter_order COMMAND exact_top_k --check-filter-order)
 add_test(NAME top_k_edge_cases COMMAND exact_top_k --check-edge-cases)
