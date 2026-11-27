@@ -242,7 +242,7 @@ for (auto& request : batch) {
 在仓库根目录运行。Windows PowerShell 和 Bash 共用前三条命令。
 
 ```sh
-cmake -S days/week-02-storage/day-009-wal-group-commit/code -B build/day009 -G Ninja
+cmake -S step1/week-02-storage/day-009-wal-group-commit/code -B build/day009 -G Ninja
 cmake --build build/day009
 ctest --test-dir build/day009 --output-on-failure
 ```

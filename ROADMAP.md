@@ -1,4 +1,6 @@
-# 60 次课 / 约 120 天路线图
+# Step 1 · 60 次课 / 约 120 天路线图
+
+主流中间件的每日课程见 [Step 2 路线图](step2/ROADMAP.md)。
 
 > 4 个阶段 ×（14 个核心单元 + 1 个阶段工作坊）= 60 次课。
 >
@@ -9,7 +11,7 @@
 ## 使用说明
 
 - 状态：`✅` 已完成，`—` 待学习。
-- **新 week 先读 primer**：每个 W 开始必须有 `days/week-XX/00-primer.md`；W2 为 [数据库基础补丁](days/week-02-storage/00-database-primer.md)，W3 为 [Redis 入门](days/week-03-redis/00-primer.md)。没有 primer 不进入该周第一课。
+- **新 week 先读 primer**：每个 W 开始必须有 `step1/week-XX/00-primer.md`；W2 为 [数据库基础补丁](step1/week-02-storage/00-database-primer.md)，W3 为 [Redis 入门](step1/week-03-redis/00-primer.md)。没有 primer 不进入该周第一课。
 - **语言偏好**：C++20 主讲，Rust 对照，Java 只作官方实现/概念参考；代码练习默认 C++，不要求 Java 实现。
 - 顺序有依赖：W1–W2 是底座，W3–W4 是中间件，W5–W8 是分布式与工程化。可以按兴趣微调，但建议不要跳过 W1 的线程池、W2 的 WAL 和 W5 的 Raft。
 - 核心周的第 7 个单元不引入新工具，而是把前 6 个单元的模式组合成一个能运行的小系统。
@@ -25,43 +27,43 @@
 
 | Day | 主题 | 案例 / 源码坐标 | 可复用模式 | 状态 |
 |---|---|---|---|---|
-| 01 | [线程池：把并发关进笼子](days/week-01-foundations/day-001-thread-pool/README.md) | OpenJDK `ThreadPoolExecutor`：`ctl`、`execute`、`runWorker`、`getTask`、`tryTerminate` | 状态与计数打包、准入控制、拒绝策略、两阶段关闭；延伸：单队列 vs 工作窃取 | ✅ |
-| 02 | [Redis 事件循环：单线程为什么能快](days/week-01-foundations/day-002-redis-event-loop/README.md) | `ae.c` / `ae_epoll.c` / `networking.c`：`aeProcessEvents`、`beforeSleep`、文件事件与时间事件 | Reactor、水平触发、beforeSleep 延迟写、时间事件 | ✅ |
-| 03 | [时间轮：海量定时器为什么能做到 O(1)](days/week-01-foundations/day-003-timing-wheel/README.md) | Netty `HashedWheelTimer`；Kafka `SystemTimer` / `TimingWheel` | 分桶、rounds、层级时间轮、原子取消 | ✅ |
-| 04 | [异步日志：别让磁盘拖慢业务线程](days/week-01-foundations/day-004-async-logging/README.md) | Log4j2 `AsyncLogger` + LMAX Disruptor；spdlog `async_logger` | 有界队列、溢出策略、批量消费、flush/shutdown | ✅ |
-| 05 | [内存分配器：malloc 为什么会成为瓶颈](days/week-01-foundations/day-005-memory-allocator/README.md) | jemalloc / tcmalloc / mimalloc；`size class`、slab、tcache、arena | 尺寸分级、线程缓存、批量 refill、large fallback | ✅ |
-| 06 | [无锁环形队列：Disruptor 的机械同情](days/week-01-foundations/day-006-lock-free-ring/README.md) | LMAX Disruptor；本课用 bounded MPMC ring 对照 | sequence、CAS、cache line padding、release/acquire、背压 | ✅ |
-| 07 | [**阶段实验**：有界、可观测的任务处理管线](days/week-01-foundations/day-007-observable-executor/README.md) | 组合 Day 01–06；准入、超时、慢日志、异常与关闭实验 | 资源边界、单次响应与物理回收、指标与关闭语义 | ✅ |
+| 01 | [线程池：把并发关进笼子](step1/week-01-foundations/day-001-thread-pool/README.md) | OpenJDK `ThreadPoolExecutor`：`ctl`、`execute`、`runWorker`、`getTask`、`tryTerminate` | 状态与计数打包、准入控制、拒绝策略、两阶段关闭；延伸：单队列 vs 工作窃取 | ✅ |
+| 02 | [Redis 事件循环：单线程为什么能快](step1/week-01-foundations/day-002-redis-event-loop/README.md) | `ae.c` / `ae_epoll.c` / `networking.c`：`aeProcessEvents`、`beforeSleep`、文件事件与时间事件 | Reactor、水平触发、beforeSleep 延迟写、时间事件 | ✅ |
+| 03 | [时间轮：海量定时器为什么能做到 O(1)](step1/week-01-foundations/day-003-timing-wheel/README.md) | Netty `HashedWheelTimer`；Kafka `SystemTimer` / `TimingWheel` | 分桶、rounds、层级时间轮、原子取消 | ✅ |
+| 04 | [异步日志：别让磁盘拖慢业务线程](step1/week-01-foundations/day-004-async-logging/README.md) | Log4j2 `AsyncLogger` + LMAX Disruptor；spdlog `async_logger` | 有界队列、溢出策略、批量消费、flush/shutdown | ✅ |
+| 05 | [内存分配器：malloc 为什么会成为瓶颈](step1/week-01-foundations/day-005-memory-allocator/README.md) | jemalloc / tcmalloc / mimalloc；`size class`、slab、tcache、arena | 尺寸分级、线程缓存、批量 refill、large fallback | ✅ |
+| 06 | [无锁环形队列：Disruptor 的机械同情](step1/week-01-foundations/day-006-lock-free-ring/README.md) | LMAX Disruptor；本课用 bounded MPMC ring 对照 | sequence、CAS、cache line padding、release/acquire、背压 | ✅ |
+| 07 | [**阶段实验**：有界、可观测的任务处理管线](step1/week-01-foundations/day-007-observable-executor/README.md) | 组合 Day 01–06；准入、超时、慢日志、异常与关闭实验 | 资源边界、单次响应与物理回收、指标与关闭语义 | ✅ |
 
 ## W2 · 存储引擎与数据库内核
 
-> 基础不牢先读 [数据库基础补丁](days/week-02-storage/00-database-primer.md)：先建立“页/书桌/日记本/收据堆”的直觉，再回来看源码。
+> 基础不牢先读 [数据库基础补丁](step1/week-02-storage/00-database-primer.md)：先建立“页/书桌/日记本/收据堆”的直觉，再回来看源码。
 
 **本周问题**：一条写入如何变得持久？查询如何找到数据？并发事务如何互不干扰？崩溃后如何恢复？
 
 | Day | 主题 | 案例 / 源码坐标 | 可复用模式 | 状态 |
 |---|---|---|---|---|
-| 08 | [LSM-tree：用顺序写换随机写](days/week-02-storage/day-008-lsm-tree/README.md) | LevelDB / RocksDB：WAL → MemTable → Immutable → SSTable；compaction | 追加写、不可变 SST、tombstone、全量/分层合并、读写放大 | ✅ |
-| 09 | [WAL 与 group commit：fsync 的批量艺术](days/week-02-storage/day-009-wal-group-commit/README.md) | PostgreSQL `RecordTransactionCommit` / `XLogFlush`，etcd WAL `Save` / `ReadAll` / `Repair` | 预写日志、批量 fsync、校验和、幂等恢复 | ✅ |
-| 10 | [Buffer Pool：数据库的页缓存](days/week-02-storage/day-010-buffer-pool/README.md) | InnoDB buffer pool：LRU young/old、midpoint insertion、flush list、doublewrite | 页缓存、pin、两段 LRU、脏页回写、二次写 | ✅ |
-| 11 | [B+ 树页面：索引的物理结构](days/week-02-storage/day-011-bplus-tree-page/README.md) | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | slotted page、slot 二分、删除留洞/compact、页分裂 | ✅ |
-| 12 | [MVCC：快照读与版本链](days/week-02-storage/day-012-mvcc/README.md) | PostgreSQL `xmin/xmax` + snapshot；InnoDB `DB_TRX_ID/DB_ROLL_PTR` + undo + read view | 版本链、快照可见性、回滚、purge/VACUUM、写偏斜 | ✅ |
-| 13 | [ARIES：崩溃恢复的教科书](days/week-02-storage/day-013-aries/README.md) | ARIES 论文；InnoDB `log0recv.cc`、`log0log.cc`、`trx0rec.cc`；PostgreSQL `xlogrecovery.c`、`xlogutils.c` | 三阶段恢复、repeat history、pageLSN/recLSN、CLR、steal+no-force、模糊检查点 | ✅ |
-| 14 | [**周复盘**：Mini KV Engine](days/week-02-storage/day-014-mini-kv/README.md) | WAL + MemTable + SST + 恢复 + 简单 compaction | WAL 校验/截断、组件边界、故障注入、全量合并 | ✅ |
+| 08 | [LSM-tree：用顺序写换随机写](step1/week-02-storage/day-008-lsm-tree/README.md) | LevelDB / RocksDB：WAL → MemTable → Immutable → SSTable；compaction | 追加写、不可变 SST、tombstone、全量/分层合并、读写放大 | ✅ |
+| 09 | [WAL 与 group commit：fsync 的批量艺术](step1/week-02-storage/day-009-wal-group-commit/README.md) | PostgreSQL `RecordTransactionCommit` / `XLogFlush`，etcd WAL `Save` / `ReadAll` / `Repair` | 预写日志、批量 fsync、校验和、幂等恢复 | ✅ |
+| 10 | [Buffer Pool：数据库的页缓存](step1/week-02-storage/day-010-buffer-pool/README.md) | InnoDB buffer pool：LRU young/old、midpoint insertion、flush list、doublewrite | 页缓存、pin、两段 LRU、脏页回写、二次写 | ✅ |
+| 11 | [B+ 树页面：索引的物理结构](step1/week-02-storage/day-011-bplus-tree-page/README.md) | InnoDB page：File Header、Page Directory、Infimum/Supremum、split | slotted page、slot 二分、删除留洞/compact、页分裂 | ✅ |
+| 12 | [MVCC：快照读与版本链](step1/week-02-storage/day-012-mvcc/README.md) | PostgreSQL `xmin/xmax` + snapshot；InnoDB `DB_TRX_ID/DB_ROLL_PTR` + undo + read view | 版本链、快照可见性、回滚、purge/VACUUM、写偏斜 | ✅ |
+| 13 | [ARIES：崩溃恢复的教科书](step1/week-02-storage/day-013-aries/README.md) | ARIES 论文；InnoDB `log0recv.cc`、`log0log.cc`、`trx0rec.cc`；PostgreSQL `xlogrecovery.c`、`xlogutils.c` | 三阶段恢复、repeat history、pageLSN/recLSN、CLR、steal+no-force、模糊检查点 | ✅ |
+| 14 | [**周复盘**：Mini KV Engine](step1/week-02-storage/day-014-mini-kv/README.md) | WAL + MemTable + SST + 恢复 + 简单 compaction | WAL 校验/截断、组件边界、故障注入、全量合并 | ✅ |
 
 ## W3 · Redis 专题
 
-> 先读 [Week 03 入门：Redis 专题](days/week-03-redis/00-primer.md)，再进入 Day 15。
+> 先读 [Week 03 入门：Redis 专题](step1/week-03-redis/00-primer.md)，再进入 Day 15。
 
 **本周问题**：一个单线程内存数据库，如何同时做到低延迟、可持久化、可复制、可水平扩展？
 
 | Day | 主题 | 案例 / 源码坐标 | 可复用模式 | 状态 |
 |---|---|---|---|---|
-| 15 | [渐进式 rehash：大字典不能一次搬完](days/week-03-redis/day-015-incremental-rehash/README.md) | Redis `dict.c`：`dictRehash`、`rehashidx`、双表、`dictRehashMilliseconds`、`dictScanDefrag` | 增量迁移、双结构并存、摊还成本、整桶搬迁、空桶预算、反序游标 | ✅ |
-| 16 | [过期删除与内存淘汰](days/week-03-redis/day-016-expire-evict/README.md) | `expire.c`、`evict.c`：惰性删除、active expire、LRU/LFU 采样、eviction pool | 惰性清理、采样近似、策略分离、内存水位 | ✅ |
-| 17 | [RDB 与 AOF：快照、COW 与日志重写](days/week-03-redis/day-017-rdb-aof/README.md) | `rdb.c`、`aof.c`：fork + COW、`fsync` 策略、AOF rewrite | 快照、写时复制、日志压缩、持久性取舍 | ✅ |
-| 18 | [主从复制：PSYNC、backlog 与断点续传](days/week-03-redis/day-018-replication/README.md) | `replication.c`：repl offset、backlog ring、full resync、WAIT | 复制日志、环形缓冲、可恢复同步、延迟监控 | ✅ |
-| 19 | [Redis Cluster：槽、重定向与去中心化故障转移](days/week-03-redis/day-019-cluster/README.md) | `cluster.c`：16384 slots、MOVED/ASK、gossip、failover、quorum | 分片、重定向、成员协议、脑裂边界 | ✅ |
+| 15 | [渐进式 rehash：大字典不能一次搬完](step1/week-03-redis/day-015-incremental-rehash/README.md) | Redis `dict.c`：`dictRehash`、`rehashidx`、双表、`dictRehashMilliseconds`、`dictScanDefrag` | 增量迁移、双结构并存、摊还成本、整桶搬迁、空桶预算、反序游标 | ✅ |
+| 16 | [过期删除与内存淘汰](step1/week-03-redis/day-016-expire-evict/README.md) | `expire.c`、`evict.c`：惰性删除、active expire、LRU/LFU 采样、eviction pool | 惰性清理、采样近似、策略分离、内存水位 | ✅ |
+| 17 | [RDB 与 AOF：快照、COW 与日志重写](step1/week-03-redis/day-017-rdb-aof/README.md) | `rdb.c`、`aof.c`：fork + COW、`fsync` 策略、AOF rewrite | 快照、写时复制、日志压缩、持久性取舍 | ✅ |
+| 18 | [主从复制：PSYNC、backlog 与断点续传](step1/week-03-redis/day-018-replication/README.md) | `replication.c`：repl offset、backlog ring、full resync、WAIT | 复制日志、环形缓冲、可恢复同步、延迟监控 | ✅ |
+| 19 | [Redis Cluster：槽、重定向与去中心化故障转移](step1/week-03-redis/day-019-cluster/README.md) | `cluster.c`：16384 slots、MOVED/ASK、gossip、failover、quorum | 分片、重定向、成员协议、脑裂边界 | ✅ |
 | 20 | Streams：消费者组与 PEL | `t_stream.c`：consumer group、PEL、XACK、XAUTOCLAIM | 日志 + 游标、未确认消息、消息认领 | — |
 | 21 | **周复盘**：缓存架构的五个坑 | cache-aside、穿透/击穿/雪崩/热 key/一致性 | singleflight、逻辑过期、降级、容量规划 | — |
 
@@ -139,20 +141,20 @@
 
 ## 阶段工作坊（A–D）
 
-> 目录与模板见 [workshops/README.md](workshops/README.md)。工作坊 A 的产出放在 [W2 周目录下](days/week-02-storage/workshop-a-storage-recovery/README.md)，与 Day 14 相邻；B–D 落地时同样放在各自阶段的周目录里。
+> 目录与模板见 [workshops/README.md](workshops/README.md)。工作坊 A 的产出放在 [W2 周目录下](step1/week-02-storage/workshop-a-storage-recovery/README.md)，与 Day 14 相邻；B–D 落地时同样放在各自阶段的周目录里。
 
 工作坊不是“多学一个工具”，而是把前 14 个核心单元放进一个**可失败的实验**里。每个工作坊同样占一个两日单元，产出一篇文章 + 一个可运行 harness。
 
 | 工作坊 | 插入位置 | 主题 | 必须完成的实验 | 产出 |
 |---|---|---|---|---|
-| [**A**](days/week-02-storage/workshop-a-storage-recovery/README.md) | Day 14 后 | 存储引擎压测与崩溃恢复 | 写入中途 `kill -9`；部分写/坏校验和；恢复后校验不变量 | 实验报告 + recovery harness |
+| [**A**](step1/week-02-storage/workshop-a-storage-recovery/README.md) | Day 14 后 | 存储引擎压测与崩溃恢复 | 写入中途 `kill -9`；部分写/坏校验和；恢复后校验不变量 | 实验报告 + recovery harness |
 | **B** | Day 28 后 | 消息系统故障注入 | 重复投递、乱序、积压、消费者崩溃；验证 Outbox 与幂等 | 故障注入脚本 + 消费端幂等测试 |
 | **C** | Day 42 后 | 调度与锁的混沌实验 | 时钟偏移、网络分区、lease 过期；验证 fencing token | 混沌实验 + 调度器恢复报告 |
 | **D** | Day 56 后 | 个人项目迁移工作坊 | 从 48 张卡片中选 3 个模式做 PoC；设计评审；给出 30 天落地计划 | 迁移设计文档 + PoC 代码 |
 
 **顺序**：`Day 01–14 → A → Day 15–28 → B → Day 29–42 → C → Day 43–56 → D`。
 
-**工作坊进度**：A ✅（[报告](days/week-02-storage/workshop-a-storage-recovery/README.md) · 43 个场景 / 3 组基准，36 个严格不变量场景 0 丢失） / B `—` / C `—` / D `—`。
+**工作坊进度**：A ✅（[报告](step1/week-02-storage/workshop-a-storage-recovery/README.md) · 43 个场景 / 3 组基准，36 个严格不变量场景 0 丢失） / B `—` / C `—` / D `—`。
 
 ---
 

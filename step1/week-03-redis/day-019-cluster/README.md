@@ -828,7 +828,7 @@ bool Cluster::promote(NodeId replica) {
 ### 6.7 运行
 
 ```bash
-cd days/week-03-redis/day-019-cluster/code
+cd step1/week-03-redis/day-019-cluster/code
 cmake -S . -B build -G Ninja
 cmake --build build
 ctest --test-dir build --output-on-failure

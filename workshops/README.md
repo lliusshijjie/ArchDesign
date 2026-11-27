@@ -2,7 +2,7 @@
 
 > 每 14 个核心单元后，停下来一次。工作坊不是新课，而是把刚学过的机制放进一个**可失败的实验**里。
 
-前六课的组合实验位于 [Day 07：有界、可观测的任务处理管线](../days/week-01-foundations/day-007-observable-executor/README.md)，覆盖线程池、事件循环、时间轮、日志、分配器与 ring。它属于 W1 复盘单元，不额外占用工作坊 A–D 的名额；已通过 C++20 构建与 7 项 CTest 验证。
+前六课的组合实验位于 [Day 07：有界、可观测的任务处理管线](../step1/week-01-foundations/day-007-observable-executor/README.md)，覆盖线程池、事件循环、时间轮、日志、分配器与 ring。它属于 W1 复盘单元，不额外占用工作坊 A–D 的名额；已通过 C++20 构建与 7 项 CTest 验证。
 
 ## 位置
 
@@ -21,14 +21,14 @@ Day 43–56  →  工作坊 D
 
 | 工作坊 | 插入点 | 主题 | 核心问题 | 状态 |
 |---|---|---|---|---|
-| **A** | Day 14 后 | 存储引擎压测与崩溃恢复 | 进程在任意位置崩溃，恢复后数据是否仍然自洽？ | ✅ [报告](../days/week-02-storage/workshop-a-storage-recovery/README.md) |
+| **A** | Day 14 后 | 存储引擎压测与崩溃恢复 | 进程在任意位置崩溃，恢复后数据是否仍然自洽？ | ✅ [报告](../step1/week-02-storage/workshop-a-storage-recovery/README.md) |
 | **B** | Day 28 后 | 消息系统故障注入 | 重复、乱序、积压、消费者崩溃时，投递语义还成立吗？ | — |
 | **C** | Day 42 后 | 调度与锁的混沌实验 | 时钟偏移、网络分区、lease 过期时，会不会出现双执行？ | — |
 | **D** | Day 56 后 | 个人项目迁移工作坊 | 哪 3 个模式值得带回自己的项目？如何验证、如何回滚？ | — |
 
 **工作坊 A 实测**：14 个崩溃点位 + 4 种磁盘损坏 + 3 种错误配置，共 43 个场景；
 安全配置下 36 个严格不变量场景 0 丢失、0 幽灵键、0 复活；错误配置下丢 10–15 条或 fail-stop。
-代码在 [workshop-a-storage-recovery/code](../days/week-02-storage/workshop-a-storage-recovery/code/)，`ctest` 1/1 通过（约 25 秒）。
+代码在 [workshop-a-storage-recovery/code](../step1/week-02-storage/workshop-a-storage-recovery/code/)，`ctest` 1/1 通过（约 25 秒）。
 
 ## 固定产出
 
@@ -47,7 +47,7 @@ Day 43–56  →  工作坊 D
 工作坊的产出放在**它所属阶段最后一周的目录下**，和核心课放在一起：
 
 ```text
-days/
+step1/
 ├── week-02-storage/
 │   ├── day-014-mini-kv/
 │   └── workshop-a-storage-recovery/    # 工作坊 A：README.md + code/
@@ -60,6 +60,6 @@ workshops/
 ```
 
 这样安排的理由：工作坊的被测系统就是前 14 天的代码，放在同一个周目录里，
-复习时不必在 `days/` 和 `workshops/` 之间跳转；`workshops/` 只保留索引与模板说明。
+复习时不必在 `step1/` 和 `workshops/` 之间跳转；`workshops/` 只保留索引与模板说明。
 
 工作坊代码可以是脚本、harness 或最小复现，不要求和核心课一样完整，但必须能重复运行。

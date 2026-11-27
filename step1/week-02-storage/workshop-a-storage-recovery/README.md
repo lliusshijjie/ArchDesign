@@ -632,7 +632,7 @@ CTest：  1/1 通过（21.9 s；另一次冷构建后 28.4 s）
 ## 13. 如何运行
 
 ```bash
-cd days/week-02-storage/workshop-a-storage-recovery/code
+cd step1/week-02-storage/workshop-a-storage-recovery/code
 cmake -S . -B build -G Ninja
 cmake --build build
 ctest --test-dir build --output-on-failure

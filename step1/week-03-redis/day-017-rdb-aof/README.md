@@ -1019,7 +1019,7 @@ if (rewrite_active_) {
 ### 6.6 运行
 
 ```bash
-cd days/week-03-redis/day-017-rdb-aof/code
+cd step1/week-03-redis/day-017-rdb-aof/code
 cmake -S . -B build -G Ninja
 cmake --build build
 ctest --test-dir build --output-on-failure
